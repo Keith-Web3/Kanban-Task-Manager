@@ -1,0 +1,37 @@
+@use '../variables' as *;
+
+.button {
+  padding: 0.75em 1.3em;
+  border-radius: 100vh;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: $spacer;
+  font-weight: 700;
+  color: #ffffff;
+  transition: background-color 250ms linear;
+
+  &.btn--one {
+    background-color: $btn-primary-200;
+
+    &:hover {
+      background-color: $btn-primary-100;
+    }
+  }
+  &.btn--two {
+    background-color: $btn-secondary-200;
+
+    &:hover {
+      background-color: $btn-secondary-100;
+    }
+  }
+  &.btn--three {
+    background-color: $btn-destructive-200;
+
+    &:hover {
+      background-color: $btn-destructive-100;
+    }
+  }
+}

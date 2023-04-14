@@ -1,0 +1,41 @@
+@use '../variables' as *;
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: $spacer;
+  padding: $spacer;
+
+  img {
+    object-fit: contain;
+    height: 100%;
+
+    &:not(.header__logo) {
+      cursor: pointer;
+    }
+  }
+  &__title {
+    text-transform: capitalize;
+    font-weight: 700;
+    font-size: 1.3rem;
+
+    & + img {
+      width: 0.95rem;
+    }
+
+    @include screen(355, $type: 'max') {
+      font-size: 1rem;
+
+      & + img {
+        width: 0.75rem;
+      }
+    }
+  }
+  &__add-board {
+    background-color: $purple-main;
+    padding: 0.75em 1.3em;
+    border-radius: 100vh;
+    margin-left: auto;
+    cursor: pointer;
+  }
+}

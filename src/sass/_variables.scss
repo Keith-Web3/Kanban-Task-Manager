@@ -1,0 +1,36 @@
+$spacer: 1em;
+
+$purple-main: #635fc7;
+$purple-light: #a8a4ff;
+$dark-400: #000112;
+$dark-300: #20212c;
+$dark-200: #2b2c37;
+$dark-100: #3e3f4e;
+$gray-200: #828fa3;
+$gray-100: #f4f7fd;
+$sky-blue: #e4ebfa;
+$white: #ffffff;
+$red-200: #ea5555;
+$red-100: #ff9898;
+
+$background: #ffffff;
+$btn-primary-100: #a8a4ff;
+$btn-primary-200: #635fc7;
+$btn-secondary-100: #635fc740;
+$btn-secondary-200: #635fc71a;
+$btn-destructive-100: #ff9898;
+$btn-destructive-200: #ea5555;
+$label: #828fa3;
+
+@media (prefers-color-scheme: dark) {
+  $background: #2b2c37;
+  $btn-secondary-100: #ffffff;
+  $btn-secondary-200: #ffffff;
+  $label: #ffffff;
+}
+
+@mixin screen($width, $type: 'min') {
+  @media (#{$type}-width: #{$width}px) {
+    @content;
+  }
+}

@@ -1,0 +1,26 @@
+@use '../variables' as *;
+
+.body {
+  display: grid;
+  height: calc(100vh - 66px);
+  place-content: center;
+  background-color: $gray-100;
+  padding: $spacer;
+
+  .empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    &:not(:only-child) {
+      display: none;
+    }
+
+    &__message {
+      color: $gray-200;
+      font-weight: 700;
+      margin-bottom: $spacer;
+    }
+  }
+}
