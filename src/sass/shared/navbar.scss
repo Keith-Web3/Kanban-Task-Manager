@@ -1,0 +1,55 @@
+@use '../variables' as *;
+
+.navbar {
+  position: absolute;
+  inset: 65px 0 0 0;
+  background-color: rgba(#000000, 0.5);
+
+  &__container {
+    width: max-content;
+    color: $gray-200;
+    font-weight: 700;
+    background-color: $white;
+    padding-block: $spacer * 0.5;
+    border-radius: 8px;
+    margin: $spacer auto 0;
+  }
+  &__header {
+    display: none;
+  }
+  &__board {
+    display: flex;
+    gap: $spacer;
+    text-transform: capitalize;
+    padding: 0.75em 1.4em 0.75em 1em;
+    margin-bottom: $spacer;
+    margin-right: $spacer * 1.5;
+    border-radius: 0px 100px 100px 0px;
+    cursor: pointer;
+    &.navbar__add-board {
+      color: $purple-main;
+      img:nth-child(2) {
+        width: 0.8rem;
+      }
+    }
+    &.active {
+      background-color: $purple-main;
+      img {
+        filter: brightness(100);
+      }
+      p {
+        color: $white;
+      }
+    }
+
+    img {
+      object-fit: contain;
+      width: 1.3rem;
+    }
+  }
+  &__title {
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    padding: $spacer 0 $spacer 1em;
+  }
+}

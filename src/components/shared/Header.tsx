@@ -8,9 +8,10 @@ import ellipsis from '../../assets/icon-vertical-ellipsis.svg'
 import '../../sass/shared/header.scss'
 import Button from '../ui/Button'
 
-const Header: React.FC = function () {
-  const [isNavOpened, setIsNavOpened] = useState(false)
-
+const Header: React.FC<{
+  isNavOpened: boolean
+  setIsNavOpened: React.Dispatch<React.SetStateAction<boolean>>
+}> = function ({ isNavOpened, setIsNavOpened }) {
   const variants = {
     initial: {
       rotate: 0,
@@ -33,7 +34,7 @@ const Header: React.FC = function () {
         src={chevronDown}
         alt="down arrow"
       />
-      <Button className="header__add-board btn--one">
+      <Button className={`header__add-board btn--one`}>
         <img src={add} alt="add board" />
       </Button>
       <img className="header__ellipsis" src={ellipsis} alt="ellipsis" />
