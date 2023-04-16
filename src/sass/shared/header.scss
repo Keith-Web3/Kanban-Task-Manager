@@ -6,10 +6,11 @@
   gap: $spacer;
   padding: $spacer;
 
-  @include screen(545) {
+  @include screen(700) {
     position: sticky;
     top: 0;
     background-color: $white;
+    box-shadow: 2px 0 1px $gray-200;
   }
 
   img {
@@ -20,7 +21,7 @@
       cursor: pointer;
     }
 
-    @include screen(545) {
+    @include screen(700) {
       &:is(.header__logo, .header__chevron) {
         display: none;
       }
@@ -46,20 +47,35 @@
       }
     }
   }
-  &__add-board {
+  &__add-task {
     background-color: $purple-main;
     padding: 0.75em 1.3em;
     border-radius: 100vh;
     margin-left: auto;
     cursor: pointer;
 
+    &.disabled {
+      opacity: 0.25;
+    }
+
     p {
       display: none;
 
-      @include screen(545) {
+      @include screen(700) {
         display: unset;
         text-transform: capitalize;
       }
+    }
+  }
+  &__sidebar-hidden {
+    display: none;
+    align-items: center;
+    gap: $spacer;
+    display: none;
+
+    p {
+      font-weight: 700;
+      font-size: 2rem;
     }
   }
 }

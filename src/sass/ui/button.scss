@@ -16,7 +16,7 @@
   &.btn--one {
     background-color: $btn-primary-200;
 
-    &:hover {
+    &:not(.disabled):hover {
       background-color: $btn-primary-100;
     }
   }

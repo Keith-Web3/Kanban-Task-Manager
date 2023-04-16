@@ -9,13 +9,14 @@
   &.active {
     pointer-events: unset;
   }
-  @include screen(545) {
+  @include screen(700) {
     position: sticky;
     top: 0;
-    pointer-events: unset;
-    opacity: 1;
+    pointer-events: unset !important;
+    opacity: 1 !important;
     width: max-content;
     background-color: $white;
+    box-shadow: 0 2px 1px $gray-200;
   }
 
   &__container {
@@ -27,14 +28,17 @@
     border-radius: 8px;
     margin: $spacer auto 0;
 
-    @include screen(545) {
+    @include screen(700) {
       margin: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
   }
   &__header {
     display: none;
 
-    @include screen(545) {
+    @include screen(700) {
       display: flex;
       gap: $spacer;
       padding-left: 1.4em;
@@ -84,7 +88,7 @@
     letter-spacing: 2.5px;
     padding: $spacer 0 $spacer 1.4em;
 
-    @include screen(545) {
+    @include screen(700) {
       margin-block: $spacer * 1.5 $spacer * 0.5;
     }
   }
@@ -98,6 +102,10 @@
     width: calc(100% - 2.4em);
     background-color: $gray-100;
 
+    @include screen(700) {
+      margin-top: auto;
+    }
+
     &-toggler {
       height: 24px;
       width: 45px;
@@ -108,7 +116,7 @@
       display: flex;
       justify-content: flex-start;
 
-      &[data-isOn='true'] {
+      &[data-ison='true'] {
         justify-content: flex-end;
       }
 
@@ -122,6 +130,18 @@
 
     img {
       width: 1.5rem;
+    }
+  }
+  &__hide {
+    display: flex;
+    align-items: center;
+    gap: $spacer;
+    cursor: pointer;
+    margin: $spacer * 1.5 0 $spacer * 2 $spacer * 1.4;
+    text-transform: capitalize;
+
+    @include screen(700, 'max') {
+      display: none;
     }
   }
 }

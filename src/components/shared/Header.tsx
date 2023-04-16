@@ -7,6 +7,7 @@ import add from '../../assets/icon-add-task-mobile.svg'
 import ellipsis from '../../assets/icon-vertical-ellipsis.svg'
 import '../../sass/shared/header.scss'
 import Button from '../ui/Button'
+import useStore from '../store/store'
 
 const Header: React.FC<{
   isNavOpened: boolean
@@ -20,11 +21,20 @@ const Header: React.FC<{
       rotate: isNavOpened ? '180deg' : 0,
     },
   }
+  const currentBoard = useStore(state => state.currentBoard)
 
   return (
-    <header className="header">
+    <motion.header
+      layout
+      // transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+      className="header"
+    >
+      <div className="header__sidebar-hidden">
+        <img src={logo} alt="logo" />
+        <p>kanban</p>
+      </div>
       <img className="header__logo" src={logo} alt="logo" />
-      <p className="header__title">platform launch</p>
+      <p className="header__title">{currentBoard.name}</p>
       <motion.img
         onClick={() => setIsNavOpened(prev => !prev)}
         variants={variants}
@@ -34,12 +44,16 @@ const Header: React.FC<{
         src={chevronDown}
         alt="down arrow"
       />
-      <Button className={`header__add-board btn--one`}>
+      <Button
+        className={`header__add-task btn--one ${
+          currentBoard.status.length ? '' : 'disabled'
+        }`}
+      >
         <img src={add} alt="add board" />
         <p>add new task</p>
       </Button>
       <img className="header__ellipsis" src={ellipsis} alt="ellipsis" />
-    </header>
+    </motion.header>
   )
 }
 

@@ -13,7 +13,7 @@
     align-items: center;
     text-align: center;
 
-    &:not(:only-child) {
+    &:not(:first-child) {
       display: none;
     }
 
@@ -22,5 +22,8 @@
       font-weight: 700;
       margin-bottom: $spacer;
     }
+  }
+  .hide-sidebar {
+    display: none;
   }
 }

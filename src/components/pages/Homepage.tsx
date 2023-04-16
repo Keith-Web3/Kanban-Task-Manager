@@ -8,12 +8,17 @@ import NavBar from '../shared/NavBar'
 
 const Homepage: React.FC = function () {
   const [isNavOpened, setIsNavOpened] = useState(false)
+  const [isSideBarHidden, setIsSideBarHidden] = useState(false)
 
   return (
-    <div className="homepage">
+    <div className="homepage" data-is_side_bar_hidden={isSideBarHidden}>
       <Header isNavOpened={isNavOpened} setIsNavOpened={setIsNavOpened} />
-      <NavBar isNavOpened={isNavOpened} key={nanoid()} />
-      <Body />
+      <NavBar
+        isNavOpened={isNavOpened}
+        setIsSideBarHidden={setIsSideBarHidden}
+        key={nanoid()}
+      />
+      <Body setIsSideBarHidden={setIsSideBarHidden} />
     </div>
   )
 }

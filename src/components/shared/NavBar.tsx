@@ -9,24 +9,27 @@ import boardIconP from '../../assets/icon-board-purple.svg'
 import plusP from '../../assets/icon-add-purple.svg'
 import darkTheme from '../../assets/icon-dark-theme.svg'
 import lightTheme from '../../assets/icon-light-theme.svg'
+import eye from '../../assets/icon-hide-sidebar.svg'
 import '../../sass/shared/navbar.scss'
 
-const NavBar: React.FC<{ isNavOpened: boolean }> = function ({ isNavOpened }) {
+const NavBar: React.FC<{
+  isNavOpened: boolean
+  setIsSideBarHidden: React.Dispatch<React.SetStateAction<boolean>>
+}> = function ({ isNavOpened, setIsSideBarHidden }) {
   const boards = useStore(state => state.boards)
+  const currentBoard = useStore(state => state.currentBoard)
+  const setCurrentBoard = useStore(state => state.setCurrentBoard)
   const [theme, toggleTheme] = useStore(state => [
     state.theme,
     state.toggleTheme,
   ])
-  console.log(theme === 'light')
-  const variants = {
-    animate: {
-      marginLeft: theme === 'light' ? 0 : 'auto',
-    },
-  }
+
   return (
     <motion.nav
+      layout
       initial={{ opacity: 0 }}
       animate={{ opacity: Number(isNavOpened) }}
+      // transition={{ type: 'spring', stiffness: 900, damping: 30 }}
       className={`navbar ${isNavOpened ? 'active' : ''}`}
     >
       <div className="navbar__container">
@@ -36,10 +39,13 @@ const NavBar: React.FC<{ isNavOpened: boolean }> = function ({ isNavOpened }) {
         </div>
         <p className="navbar__title">All boards({boards.length})</p>
         <div className="navbar__boards">
-          {boards.map((board, idx) => (
+          {boards.map(board => (
             <div
               key={nanoid()}
-              className={`navbar__board ${idx === 0 && 'active'}`}
+              className={`navbar__board ${
+                board.id === currentBoard.id ? 'active' : ''
+              }`}
+              onClick={() => setCurrentBoard(board.id)}
             >
               <img src={boardIcon} alt="board" />
               <p>{board.name}</p>
@@ -54,16 +60,20 @@ const NavBar: React.FC<{ isNavOpened: boolean }> = function ({ isNavOpened }) {
         <div className="navbar__theme">
           <img src={lightTheme} alt="light-theme" />
           <div
-            data-isOn={theme === 'light'}
+            data-ison={theme === 'light'}
             className="navbar__theme-toggler"
             onClick={toggleTheme}
           >
             <motion.div
               layout
-              transition={{ type: 'spring', stiffness: 700, damping: 30 }}
+              transition={{ type: 'spring', stiffness: 500, damping: 30 }}
             ></motion.div>
           </div>
           <img src={darkTheme} alt="dark-theme" />
+        </div>
+        <div className="navbar__hide" onClick={() => setIsSideBarHidden(true)}>
+          <img src={eye} alt="hide sidebar" />
+          <p>hide sidebar</p>
         </div>
       </div>
     </motion.nav>
