@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { AnimatePresence } from 'framer-motion'
 import { nanoid } from 'nanoid'
 
 import Header from '../shared/Header'
@@ -13,9 +12,7 @@ const Homepage: React.FC = function () {
   return (
     <div className="homepage">
       <Header isNavOpened={isNavOpened} setIsNavOpened={setIsNavOpened} />
-      <AnimatePresence>
-        {isNavOpened && <NavBar key={nanoid()} />}
-      </AnimatePresence>
+      <NavBar isNavOpened={isNavOpened} key={nanoid()} />
       <Body />
     </div>
   )

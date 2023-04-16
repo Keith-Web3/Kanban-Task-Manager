@@ -36,6 +36,7 @@ const Header: React.FC<{
       />
       <Button className={`header__add-board btn--one`}>
         <img src={add} alt="add board" />
+        <p>add new task</p>
       </Button>
       <img className="header__ellipsis" src={ellipsis} alt="ellipsis" />
     </header>

@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 
+console.log(window.getComputedStyle(document.body).content)
 type State = {
   boards: {
     name: string
@@ -11,9 +12,14 @@ type State = {
       }[]
     }[]
   }[]
+  theme: 'light' | 'dark'
+  toggleTheme: () => void
+}
+type Action = {
+  toggleTheme: () => void
 }
 
-const useStore = create<State>(set => ({
+const useStore = create<State & Action>((set, get) => ({
   boards: [
     {
       name: 'platform launch',
@@ -169,6 +175,14 @@ const useStore = create<State>(set => ({
       ],
     },
   ],
+  theme: window.getComputedStyle(document.body).content as 'light' | 'dark',
+  toggleTheme: function () {
+    console.log(get().theme)
+    set(() => {
+      if (get().theme === 'light') return { theme: 'dark' }
+      return { theme: 'light' }
+    })
+  },
   // increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
   // removeAllBears: () => set({ bears: 0 }),
 }))

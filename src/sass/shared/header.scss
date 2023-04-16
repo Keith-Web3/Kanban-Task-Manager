@@ -6,12 +6,27 @@
   gap: $spacer;
   padding: $spacer;
 
+  @include screen(545) {
+    position: sticky;
+    top: 0;
+    background-color: $white;
+  }
+
   img {
     object-fit: contain;
     height: 100%;
 
     &:not(.header__logo) {
       cursor: pointer;
+    }
+
+    @include screen(545) {
+      &:is(.header__logo, .header__chevron) {
+        display: none;
+      }
+      &.header__ellipsis {
+        width: 0.4rem;
+      }
     }
   }
   &__title {
@@ -37,5 +52,14 @@
     border-radius: 100vh;
     margin-left: auto;
     cursor: pointer;
+
+    p {
+      display: none;
+
+      @include screen(545) {
+        display: unset;
+        text-transform: capitalize;
+      }
+    }
   }
 }

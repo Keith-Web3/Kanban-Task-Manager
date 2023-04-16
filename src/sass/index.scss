@@ -2,4 +2,11 @@
 
 body {
   font-family: 'Plus Jakarta Sans', Nunito, sans-serif;
+
+  @media (prefers-color-scheme: light) {
+    content: 'light';
+  }
+  @media (prefers-color-scheme: dark) {
+    content: 'dark';
+  }
 }

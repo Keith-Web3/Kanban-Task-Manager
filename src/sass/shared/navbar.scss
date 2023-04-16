@@ -4,6 +4,19 @@
   position: absolute;
   inset: 65px 0 0 0;
   background-color: rgba(#000000, 0.5);
+  pointer-events: none;
+
+  &.active {
+    pointer-events: unset;
+  }
+  @include screen(545) {
+    position: sticky;
+    top: 0;
+    pointer-events: unset;
+    opacity: 1;
+    width: max-content;
+    background-color: $white;
+  }
 
   &__container {
     width: max-content;
@@ -13,15 +26,34 @@
     padding-block: $spacer * 0.5;
     border-radius: 8px;
     margin: $spacer auto 0;
+
+    @include screen(545) {
+      margin: 0;
+    }
   }
   &__header {
     display: none;
+
+    @include screen(545) {
+      display: flex;
+      gap: $spacer;
+      padding-left: 1.4em;
+
+      p {
+        color: $dark-400;
+        font-size: 2rem;
+        font-weight: 700;
+      }
+      img {
+        object-fit: contain;
+      }
+    }
   }
   &__board {
     display: flex;
     gap: $spacer;
     text-transform: capitalize;
-    padding: 0.75em 1.4em 0.75em 1em;
+    padding: 0.75em 1.4em;
     margin-bottom: $spacer;
     margin-right: $spacer * 1.5;
     border-radius: 0px 100px 100px 0px;
@@ -50,6 +82,46 @@
   &__title {
     text-transform: uppercase;
     letter-spacing: 2.5px;
-    padding: $spacer 0 $spacer 1em;
+    padding: $spacer 0 $spacer 1.4em;
+
+    @include screen(545) {
+      margin-block: $spacer * 1.5 $spacer * 0.5;
+    }
+  }
+  &__theme {
+    display: flex;
+    place-content: center;
+    margin-inline: auto;
+    padding: $spacer;
+    border-radius: 6px;
+    gap: $spacer * 1.5;
+    width: calc(100% - 2.4em);
+    background-color: $gray-100;
+
+    &-toggler {
+      height: 24px;
+      width: 45px;
+      border-radius: 100vh;
+      background-color: $purple-main;
+      padding: 3px;
+      cursor: pointer;
+      display: flex;
+      justify-content: flex-start;
+
+      &[data-isOn='true'] {
+        justify-content: flex-end;
+      }
+
+      div {
+        height: 100%;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        background-color: $white;
+      }
+    }
+
+    img {
+      width: 1.5rem;
+    }
   }
 }
