@@ -45,7 +45,10 @@ const Board: React.FC<{
             onClick={() => setTaskInfo({ task, showTask: true })}
           >
             <p>{task.name}</p>
-            <p>0 of 1 subtasks</p>
+            <p>
+              {task.subtasks.filter(el => el.completed).length} of{' '}
+              {task.subtasks.length} subtasks
+            </p>
           </div>
         ))}
       </div>

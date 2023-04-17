@@ -42,10 +42,56 @@
     border-radius: 4px;
     color: $dark-400;
     font-weight: 700;
+    cursor: pointer;
+
+    input {
+      display: none;
+    }
+    .custom-checkbox {
+      width: 18px;
+      height: 18px;
+      padding: 0.2em;
+      border: 1px solid rgba(130, 143, 163, 0.248914);
+      border-radius: 2px;
+      background-color: $white;
+
+      img {
+        display: none;
+      }
+    }
 
     &:has(input:checked) {
       color: rgba($dark-400, 0.5);
       text-decoration: line-through;
+
+      .custom-checkbox {
+        background-color: $purple-main;
+        img {
+          display: block;
+        }
+      }
+    }
+  }
+  &__current {
+    color: $gray-200;
+    font-weight: 700;
+    text-transform: capitalize;
+    margin-top: $spacer * 1.5;
+  }
+  &__status {
+    margin-top: $spacer;
+    .status-dropdown {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(130, 143, 163, 0.25);
+      border-radius: 4px;
+      padding: $spacer;
+      cursor: pointer;
+
+      img {
+        width: 1rem;
+      }
     }
   }
 }
