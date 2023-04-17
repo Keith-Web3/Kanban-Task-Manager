@@ -8,6 +8,7 @@ type State = {
       name: string
       tasks: {
         name: string
+        description?: string
         subtasks: { task: string; completed: boolean }[]
       }[]
     }[]
@@ -42,6 +43,8 @@ const useStore = create<State & Action>((set, get) => ({
           tasks: [
             {
               name: 'Build UI for onboarding flow',
+              description:
+                "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
               subtasks: [
                 { task: 'Do this', completed: false },
                 { task: 'Do that', completed: false },
@@ -200,6 +203,8 @@ const useStore = create<State & Action>((set, get) => ({
         tasks: [
           {
             name: 'Build UI for onboarding flow',
+            description:
+              "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
             subtasks: [
               { task: 'Do this', completed: false },
               { task: 'Do that', completed: false },
@@ -215,6 +220,116 @@ const useStore = create<State & Action>((set, get) => ({
             subtasks: [
               { task: 'build settings', completed: false },
               { task: 'buuld gret', completed: false },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Doing',
+        tasks: [
+          {
+            name: 'Design settings and search pages',
+            subtasks: [
+              {
+                task: 'design settings',
+                completed: false,
+              },
+              {
+                task: 'search pages',
+                completed: true,
+              },
+              {
+                task: 'platform launch',
+                completed: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Doing',
+        tasks: [
+          {
+            name: 'Design settings and search pages',
+            subtasks: [
+              {
+                task: 'design settings',
+                completed: false,
+              },
+              {
+                task: 'search pages',
+                completed: true,
+              },
+              {
+                task: 'platform launch',
+                completed: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Doing',
+        tasks: [
+          {
+            name: 'Design settings and search pages',
+            subtasks: [
+              {
+                task: 'design settings',
+                completed: false,
+              },
+              {
+                task: 'search pages',
+                completed: true,
+              },
+              {
+                task: 'platform launch',
+                completed: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Doing',
+        tasks: [
+          {
+            name: 'Design settings and search pages',
+            subtasks: [
+              {
+                task: 'design settings',
+                completed: false,
+              },
+              {
+                task: 'search pages',
+                completed: true,
+              },
+              {
+                task: 'platform launch',
+                completed: false,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'Doing',
+        tasks: [
+          {
+            name: 'Design settings and search pages',
+            subtasks: [
+              {
+                task: 'design settings',
+                completed: false,
+              },
+              {
+                task: 'search pages',
+                completed: true,
+              },
+              {
+                task: 'platform launch',
+                completed: false,
+              },
             ],
           },
         ],

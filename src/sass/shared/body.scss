@@ -2,10 +2,15 @@
 
 .body {
   display: grid;
-  height: calc(100vh - 66px);
+  min-height: calc(100vh - 66px);
   place-content: center;
   background-color: $gray-100;
   padding: $spacer;
+  overflow-x: auto;
+
+  &:has(.body__boards) {
+    display: block;
+  }
 
   .empty {
     display: flex;
@@ -25,5 +30,33 @@
   }
   .hide-sidebar {
     display: none;
+  }
+  &__boards {
+    display: grid;
+    width: max-content;
+    grid-auto-flow: column;
+    column-gap: $spacer * 2;
+    grid-template-columns: repeat(auto-fit, 300px);
+  }
+  &__add-board {
+    background-image: linear-gradient(
+      180deg,
+      #e9effa 0%,
+      rgba(233, 239, 250, 0.5) 100%
+    );
+    border-radius: 6px;
+    height: calc(100% - 40px);
+    width: 300px;
+    margin-top: 40px;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+    padding: $spacer;
+
+    p {
+      color: $gray-200;
+      text-transform: capitalize;
+      font-weight: 700;
+    }
   }
 }

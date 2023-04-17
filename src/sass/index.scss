@@ -1,4 +1,5 @@
 @use './resets';
+@use './variables' as *;
 
 body {
   font-family: 'Plus Jakarta Sans', Nunito, sans-serif;
@@ -8,5 +9,22 @@ body {
   }
   @media (prefers-color-scheme: dark) {
     content: 'dark';
+  }
+}
+#modal-root {
+  position: fixed;
+  display: grid;
+  place-items: center;
+  inset: 0;
+  z-index: 2;
+
+  &:empty {
+    display: none;
+  }
+  .backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba($dark-400, 0.25);
+    z-index: -1;
   }
 }

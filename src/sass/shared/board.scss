@@ -1,0 +1,43 @@
+@use '../variables' as *;
+
+.board {
+  &__header {
+    display: flex;
+    gap: $spacer;
+    align-items: center;
+    margin-bottom: $spacer;
+
+    div {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      object-fit: contain;
+      flex-basis: 15px;
+    }
+    p {
+      color: $gray-200;
+      letter-spacing: 2.5px;
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+  }
+  &__task {
+    background-color: $white;
+    padding: $spacer;
+    border-radius: 8px;
+    margin-bottom: $spacer;
+    box-shadow: 0px 4px 6px rgba(54, 78, 126, 0.101545);
+    cursor: pointer;
+
+    p:first-child {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: $dark-400;
+    }
+    p:nth-child(2) {
+      color: $gray-200;
+      font-weight: 700;
+      margin-top: $spacer;
+    }
+  }
+}

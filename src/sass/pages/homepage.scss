@@ -48,7 +48,7 @@
 
         .hide-sidebar {
           display: block;
-          position: absolute;
+          position: fixed;
           inset: auto auto $spacer * 2 0;
           background-color: $purple-main;
           width: 50px;

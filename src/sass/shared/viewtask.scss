@@ -1,0 +1,51 @@
+@use '../variables' as *;
+
+.view-task {
+  background-color: $white;
+  width: min(90%, 480px);
+  padding: $spacer;
+  border-radius: 6px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacer;
+
+    p {
+      font-weight: 700;
+      font-size: 1.25rem;
+    }
+    img {
+      object-fit: contain;
+      height: 20px;
+      cursor: pointer;
+    }
+  }
+  &__description {
+    color: $gray-200;
+    margin-top: $spacer;
+    line-height: 23px;
+  }
+  &__subtasks {
+    margin-block: $spacer * 1.2 $spacer;
+    color: $gray-200;
+    font-weight: 700;
+  }
+  .subtask {
+    display: flex;
+    align-items: center;
+    gap: $spacer;
+    background-color: $gray-100;
+    padding: $spacer;
+    margin-bottom: $spacer;
+    border-radius: 4px;
+    color: $dark-400;
+    font-weight: 700;
+
+    &:has(input:checked) {
+      color: rgba($dark-400, 0.5);
+      text-decoration: line-through;
+    }
+  }
+}
