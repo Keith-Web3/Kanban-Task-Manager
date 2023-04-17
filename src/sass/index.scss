@@ -3,6 +3,9 @@
 
 body {
   font-family: 'Plus Jakarta Sans', Nunito, sans-serif;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
 
   @media (prefers-color-scheme: light) {
     content: 'light';
@@ -12,11 +15,14 @@ body {
   }
 }
 #modal-root {
-  position: fixed;
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
   display: grid;
   place-items: center;
   inset: 0;
   z-index: 2;
+  padding: $spacer;
 
   &:empty {
     display: none;
@@ -27,4 +33,9 @@ body {
     background-color: rgba($dark-400, 0.25);
     z-index: -1;
   }
+}
+#root {
+  display: grid;
+  grid-column: 1;
+  grid-row: 1;
 }

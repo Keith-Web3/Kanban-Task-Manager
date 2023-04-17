@@ -55,8 +55,8 @@
       border-radius: 2px;
       background-color: $white;
 
-      img {
-        display: none;
+      svg {
+        display: block;
       }
     }
 
@@ -64,12 +64,12 @@
       color: rgba($dark-400, 0.5);
       text-decoration: line-through;
 
-      .custom-checkbox {
-        background-color: $purple-main;
-        img {
-          display: block;
-        }
-      }
+      // .custom-checkbox {
+      //   background-color: $purple-main;
+      //   svg {
+      //     display: block;
+      //   }
+      // }
     }
   }
   &__current {
@@ -88,10 +88,25 @@
       border-radius: 4px;
       padding: $spacer;
       cursor: pointer;
+      margin-bottom: $spacer;
 
       img {
         width: 1rem;
       }
+    }
+  }
+  .status-menu {
+    color: $gray-200;
+    line-height: 24px;
+    box-shadow: 0 0 2px rgba($dark-400, 0.25);
+    padding: $spacer;
+    border-radius: 4px;
+    transform-origin: 50% 0;
+
+    p {
+      padding-inline: $spacer;
+      margin-bottom: $spacer;
+      cursor: pointer;
     }
   }
 }
