@@ -6,6 +6,7 @@ body {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
+  align-items: start;
 
   @media (prefers-color-scheme: light) {
     content: 'light';
@@ -15,17 +16,18 @@ body {
   }
 }
 #modal-root {
-  position: relative;
-  grid-column: 1;
   grid-row: 1;
+  grid-column: 1;
   display: grid;
   place-items: center;
-  inset: 0;
   z-index: 2;
   padding: $spacer;
+  height: 100%;
+  min-height: 100vh;
+  position: relative;
 
   &:empty {
-    display: none;
+    pointer-events: none;
   }
   .backdrop {
     position: absolute;
@@ -35,7 +37,8 @@ body {
   }
 }
 #root {
-  display: grid;
-  grid-column: 1;
   grid-row: 1;
+  grid-column: 1;
+  position: sticky;
+  top: 0;
 }

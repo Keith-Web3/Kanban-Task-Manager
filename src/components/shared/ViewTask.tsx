@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from 'framer-motion'
 import ellipsis from '../../assets/icon-vertical-ellipsis.svg'
 import '../../sass/shared/viewtask.scss'
 import chevron from '../../assets/icon-chevron-down.svg'
-import check from '../../assets/check-solid.svg'
 import useStore from '../store/store'
 
 const SubTask: React.FC<{ task: string; completed: boolean }> = function ({
@@ -86,7 +85,12 @@ const ViewTask: React.FC<{
   }
 
   return (
-    <div className="view-task">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="view-task"
+    >
       <div className="view-task__header">
         <p className="view-task__title">{name}</p>
         <img src={ellipsis} alt="ellipsis" />
@@ -123,13 +127,15 @@ const ViewTask: React.FC<{
               className="status-menu"
             >
               {currentBoard.status.map(el => (
-                <motion.p variants={itemVariants}>{el.name}</motion.p>
+                <motion.p key={nanoid()} variants={itemVariants}>
+                  {el.name}
+                </motion.p>
               ))}
             </motion.div>
           )}
         </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

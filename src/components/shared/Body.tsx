@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { nanoid } from 'nanoid'
 
 import plus from '../../assets/icon-add-task-mobile.svg'
@@ -53,17 +53,23 @@ const Body: React.FC<{
         <img src={eye} alt="eye" />
       </div>
       {ReactDOM.createPortal(
-        taskInfo.showTask && (
-          <>
-            <ViewTask {...currentBoard.status[0].tasks[0]} />{' '}
-            <div
-              className="backdrop"
-              onClick={() =>
-                setTaskInfo(prev => ({ ...prev, showTask: false }))
-              }
-            ></div>
-          </>
-        ),
+        <AnimatePresence>
+          {taskInfo.showTask && (
+            <>
+              <ViewTask key={nanoid()} {...currentBoard.status[0].tasks[0]} />
+              <motion.div
+                key={nanoid()}
+                className="backdrop"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() =>
+                  setTaskInfo(prev => ({ ...prev, showTask: false }))
+                }
+              ></motion.div>
+            </>
+          )}
+        </AnimatePresence>,
         document.getElementById('modal-root')!
       )}
     </motion.main>
