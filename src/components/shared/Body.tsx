@@ -10,6 +10,7 @@ import useStore from '../store/store'
 import eye from '../../assets/icon-show-sidebar.svg'
 import Board from './Board'
 import ViewTask from './ViewTask'
+import AddTask from './AddTask'
 
 const Body: React.FC<{
   setIsSideBarHidden: React.Dispatch<React.SetStateAction<boolean>>
@@ -55,7 +56,8 @@ const Body: React.FC<{
         <AnimatePresence>
           {taskInfo.showTask && (
             <>
-              <ViewTask key={nanoid()} {...currentBoard.status[0].tasks[0]} />
+              {/* <ViewTask key={nanoid()} {...currentBoard.status[0].tasks[0]} /> */}
+              <AddTask />
               <motion.div
                 key={nanoid()}
                 className="backdrop"

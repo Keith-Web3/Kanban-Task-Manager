@@ -8,6 +8,10 @@
   padding: $spacer;
   overflow-x: auto;
 
+  @include screen(700) {
+    min-height: unset;
+  }
+
   &:has(.body__boards) {
     display: block;
   }

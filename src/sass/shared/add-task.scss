@@ -1,0 +1,134 @@
+@use '../variables' as *;
+
+.add-task {
+  background-color: $white;
+  width: min(95%, 480px);
+  padding: $spacer;
+  border-radius: 8px;
+
+  label {
+    display: block;
+  }
+  &__header {
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-transform: capitalize;
+  }
+  & > label {
+    color: $gray-200;
+    font-weight: 700;
+    margin-top: $spacer;
+
+    input,
+    textarea {
+      display: block;
+      border: 1px solid rgba(130, 143, 163, 0.25);
+      border-radius: 4px;
+      outline: none;
+      padding: 0.75em;
+      width: 100% !important;
+      margin-top: $spacer * 0.5;
+
+      &::placeholder {
+        color: #000112;
+        opacity: 0.25;
+      }
+    }
+    textarea {
+      resize: none;
+      height: 135px !important;
+    }
+  }
+  .subtasks {
+    margin-top: $spacer * 1.5;
+    &__header {
+      color: $gray-200;
+      font-weight: 700;
+      margin-bottom: $spacer * 0.5;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      gap: $spacer;
+      margin-bottom: $spacer;
+
+      input {
+        display: block;
+        flex-grow: 1;
+        padding: $spacer * 0.75;
+        border: 1px solid rgba(130, 143, 163, 0.25);
+        border-radius: 4px;
+        outline: none;
+
+        &::placeholder {
+          color: #000112;
+          opacity: 0.25;
+          font-weight: 700;
+        }
+      }
+      img {
+        object-fit: contain;
+        cursor: pointer;
+      }
+    }
+    button {
+      border: none;
+      outline: none;
+      background-color: rgba(99, 95, 199, 0.1);
+      border-radius: 20px;
+      width: 100%;
+      padding: 0.75em 1.3em;
+      color: $purple-main;
+      text-transform: capitalize;
+      font-weight: 700;
+      cursor: pointer;
+    }
+  }
+  &__dropdown {
+    margin-top: $spacer;
+    .status__header {
+      color: $gray-200;
+      font-weight: 700;
+      margin-block: $spacer $spacer * 0.5;
+    }
+    .status-dropdown {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(130, 143, 163, 0.25);
+      border-radius: 4px;
+      padding: $spacer;
+      cursor: pointer;
+      margin-bottom: $spacer;
+
+      img {
+        width: 1rem;
+      }
+    }
+    .status-menu {
+      color: $gray-200;
+      line-height: 24px;
+      box-shadow: 0 0 2px rgba($dark-400, 0.25);
+      padding: $spacer;
+      border-radius: 4px;
+      transform-origin: 50% 0;
+      margin-bottom: $spacer;
+
+      p {
+        padding-inline: $spacer;
+        margin-bottom: $spacer;
+        cursor: pointer;
+      }
+    }
+    & > button {
+      width: 100%;
+      padding: 0.75em 1.3em;
+      border: none;
+      outline: none;
+      color: $white;
+      background-color: $purple-main;
+      text-transform: capitalize;
+      border-radius: 20px;
+    }
+  }
+}
