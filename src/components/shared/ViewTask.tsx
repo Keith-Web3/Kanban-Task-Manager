@@ -72,7 +72,7 @@ const ViewTask: React.FC<{
       scale: isStatusOpen ? 1 : 0,
       transition: {
         when: 'beforeChildren',
-        staggerChildren: 0.08,
+        staggerChildren: 0.05,
         duration: 0.3,
       },
     },

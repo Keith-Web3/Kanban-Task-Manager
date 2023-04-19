@@ -23,7 +23,6 @@ const Body: React.FC<{
     }
     showTask: boolean
   }>({ task: { name: '' }, showTask: false })
-
   return (
     <motion.main
       layout
