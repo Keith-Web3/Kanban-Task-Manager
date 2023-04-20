@@ -5,6 +5,7 @@
   align-items: center;
   gap: $spacer;
   padding: $spacer;
+  position: relative;
 
   @include screen(700) {
     position: sticky;
@@ -76,6 +77,28 @@
     p {
       font-weight: 700;
       font-size: 2rem;
+    }
+  }
+  &__dropdown {
+    position: absolute;
+    padding: $spacer;
+    box-shadow: 0px 10px 20px rgba(54, 78, 126, 0.25);
+    border-radius: 8px;
+    text-transform: capitalize;
+    inset: auto $spacer -100% auto;
+    background-color: $white;
+    font-weight: 500;
+    padding-right: $spacer * 4;
+
+    p {
+      cursor: pointer;
+    }
+    p:first-child {
+      color: $gray-200;
+      margin-bottom: $spacer;
+    }
+    p:last-child {
+      color: $red-200;
     }
   }
 }

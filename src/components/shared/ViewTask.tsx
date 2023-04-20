@@ -64,7 +64,9 @@ const ViewTask: React.FC<{
 }> = function ({ name, description, subtasks }) {
   const completed = subtasks.filter(el => el.completed).length
   const currentBoard = useStore(state => state.currentBoard)
+  const setModalType = useStore(state => state.setModalType)
   const [isStatusOpen, setIsStatusOpen] = useState(false)
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false)
 
   const statusVariants = {
     initial: { scale: 0 },
@@ -93,7 +95,31 @@ const ViewTask: React.FC<{
     >
       <div className="view-task__header">
         <p className="view-task__title">{name}</p>
-        <img src={ellipsis} alt="ellipsis" />
+        <img
+          onClick={() => setIsDropDownOpen(prev => !prev)}
+          src={ellipsis}
+          alt="ellipsis"
+        />
+        <AnimatePresence>
+          {isDropDownOpen && (
+            <motion.div
+              initial={{ y: '-10px', opacity: 0 }}
+              animate={{ y: '0px', opacity: 1 }}
+              exit={{ y: '-10px', opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              className="view-task__dropdown"
+            >
+              <p
+                onClick={() =>
+                  setModalType({ modalType: 'edit-task', showModal: true })
+                }
+              >
+                edit task
+              </p>
+              <p>delete task</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
       <p className="view-task__description">{description}</p>
       <p className="view-task__subtasks">

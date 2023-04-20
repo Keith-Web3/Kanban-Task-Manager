@@ -7,7 +7,10 @@ import '../../sass/shared/add-task.scss'
 import useStore from '../store/store'
 import chevron from '../../assets/icon-chevron-down.svg'
 
-const AddTask: React.FC = function () {
+const ModifyTask: React.FC<{ title: string; button: string }> = function ({
+  title,
+  button,
+}) {
   const id = useId()
   const [isStatusOpen, setIsStatusOpen] = useState(false)
   const currentBoard = useStore(state => state.currentBoard)
@@ -32,7 +35,7 @@ const AddTask: React.FC = function () {
 
   return (
     <div className="add-task">
-      <p className="add-task__header">add new task</p>
+      <p className="add-task__header">{title}</p>
       <label htmlFor="task-title">
         Title
         <input
@@ -100,10 +103,10 @@ const AddTask: React.FC = function () {
             </motion.div>
           )}
         </AnimatePresence>
-        <button>create task</button>
+        <button>{button}</button>
       </div>
     </div>
   )
 }
 
-export default AddTask
+export default ModifyTask
