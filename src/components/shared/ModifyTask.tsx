@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { nanoid } from 'nanoid'
 
 import cancelImg from '../../assets/icon-cross.svg'
-import '../../sass/shared/add-task.scss'
+import '../../sass/shared/modify-task.scss'
 import useStore from '../store/store'
 import chevron from '../../assets/icon-chevron-down.svg'
 

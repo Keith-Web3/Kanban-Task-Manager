@@ -22,7 +22,7 @@ body {
   grid-row: 1;
   grid-column: 1;
   display: grid;
-  place-items: center;
+  align-content: center;
   z-index: 2;
   padding: $spacer;
   height: 100%;

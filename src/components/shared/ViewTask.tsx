@@ -87,81 +87,84 @@ const ViewTask: React.FC<{
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="view-task"
-    >
-      <div className="view-task__header">
-        <p className="view-task__title">{name}</p>
-        <img
-          onClick={() => setIsDropDownOpen(prev => !prev)}
-          src={ellipsis}
-          alt="ellipsis"
-        />
-        <AnimatePresence>
-          {isDropDownOpen && (
-            <motion.div
-              initial={{ y: '-10px', opacity: 0 }}
-              animate={{ y: '0px', opacity: 1 }}
-              exit={{ y: '-10px', opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="view-task__dropdown"
-            >
-              <p
-                onClick={() =>
-                  setModalType({ modalType: 'edit-task', showModal: true })
-                }
-              >
-                edit task
-              </p>
-              <p>delete task</p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-      <p className="view-task__description">{description}</p>
-      <p className="view-task__subtasks">
-        Subtasks ({completed} of {subtasks.length})
-      </p>
-      {subtasks.map(el => (
-        <SubTask key={nanoid()} {...el} />
-      ))}
-      <p className="view-task__current">current status</p>
-      <div className="view-task__status">
-        <div
-          className="status-dropdown"
-          onClick={() => setIsStatusOpen(prev => !prev)}
-        >
-          <p>Doing</p>
-          <motion.img
-            initial={{ rotate: '180deg' }}
-            animate={{ rotate: isStatusOpen ? '0deg' : '180deg' }}
-            src={chevron}
-            alt="open"
+    <>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        layout
+        className="view-task"
+      >
+        <div className="view-task__header">
+          <p className="view-task__title">{name}</p>
+          <img
+            onClick={() => setIsDropDownOpen(prev => !prev)}
+            src={ellipsis}
+            alt="ellipsis"
           />
+          <AnimatePresence>
+            {isDropDownOpen && (
+              <motion.div
+                initial={{ y: '-10px', opacity: 0 }}
+                animate={{ y: '0px', opacity: 1 }}
+                exit={{ y: '-10px', opacity: 0 }}
+                // transition={{ duration: 0.25 }}
+                className="view-task__dropdown"
+              >
+                <p
+                  onClick={() =>
+                    setModalType({ modalType: 'edit-task', showModal: true })
+                  }
+                >
+                  edit task
+                </p>
+                <p>delete task</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-        <AnimatePresence>
-          {isStatusOpen && (
-            <motion.div
-              layout
-              variants={statusVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              className="status-menu"
-            >
-              {currentBoard.status.map(el => (
-                <motion.p key={nanoid()} variants={itemVariants}>
-                  {el.name}
-                </motion.p>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </motion.div>
+        <p className="view-task__description">{description}</p>
+        <p className="view-task__subtasks">
+          Subtasks ({completed} of {subtasks.length})
+        </p>
+        {subtasks.map(el => (
+          <SubTask key={nanoid()} {...el} />
+        ))}
+        <p className="view-task__current">current status</p>
+        <div className="view-task__status">
+          <div
+            className="status-dropdown"
+            onClick={() => setIsStatusOpen(prev => !prev)}
+          >
+            <p>Doing</p>
+            <motion.img
+              initial={{ rotate: '180deg' }}
+              animate={{ rotate: isStatusOpen ? '0deg' : '180deg' }}
+              src={chevron}
+              alt="open"
+            />
+          </div>
+        </div>
+      </motion.div>
+      <AnimatePresence>
+        {isStatusOpen && (
+          <motion.div
+            layout
+            variants={statusVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="status-menu"
+          >
+            {currentBoard.status.map(el => (
+              <motion.p key={nanoid()} variants={itemVariants}>
+                {el.name}
+              </motion.p>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   )
 }
 

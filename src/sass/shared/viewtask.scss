@@ -5,6 +5,7 @@
   width: min(95%, 480px);
   padding: $spacer;
   border-radius: 6px;
+  margin-inline: auto;
 
   &__header {
     display: flex;
@@ -44,6 +45,7 @@
     color: $dark-400;
     font-weight: 700;
     cursor: pointer;
+    transition: background-color 250ms linear;
 
     input {
       display: none;
@@ -60,17 +62,12 @@
         display: block;
       }
     }
-
     &:has(input:checked) {
       color: rgba($dark-400, 0.5);
       text-decoration: line-through;
-
-      // .custom-checkbox {
-      //   background-color: $purple-main;
-      //   svg {
-      //     display: block;
-      //   }
-      // }
+    }
+    &:hover {
+      background-color: rgba($purple-main, 0.25);
     }
   }
   &__current {
@@ -96,20 +93,23 @@
       }
     }
   }
-  .status-menu {
-    color: $gray-200;
-    line-height: 24px;
-    box-shadow: 0 0 2px rgba($dark-400, 0.25);
-    padding: $spacer;
-    border-radius: 4px;
-    transform-origin: 50% 0;
+  // .status-menu {
+  //   color: $gray-200;
+  //   line-height: 24px;
+  //   box-shadow: 0 0 2px rgba($dark-400, 0.25);
+  //   padding: $spacer;
+  //   border-radius: 4px;
+  //   transform-origin: 50% 0;
+  //   // position: absolute;
+  //   background-color: $white;
+  //   // width: 100%;
 
-    p {
-      padding-inline: $spacer;
-      margin-bottom: $spacer;
-      cursor: pointer;
-    }
-  }
+  //   p {
+  //     padding-inline: $spacer;
+  //     margin-bottom: $spacer;
+  //     cursor: pointer;
+  //   }
+  // }
   &__dropdown {
     position: absolute;
     padding: $spacer;
@@ -132,5 +132,23 @@
     p:last-child {
       color: $red-200;
     }
+  }
+}
+.status-menu {
+  color: $gray-200;
+  line-height: 24px;
+  box-shadow: 0 0 2px rgba($dark-400, 0.25);
+  padding: $spacer;
+  border-radius: 4px;
+  transform-origin: 50% 0;
+  background-color: $white;
+  width: calc(min(95%, 480px) - 2em);
+  margin-top: -20px;
+  margin-inline: auto;
+
+  p {
+    padding-inline: $spacer;
+    margin-bottom: $spacer;
+    cursor: pointer;
   }
 }
