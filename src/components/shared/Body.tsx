@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { nanoid } from 'nanoid'
@@ -9,21 +9,13 @@ import '../../sass/shared/body.scss'
 import useStore from '../store/store'
 import eye from '../../assets/icon-show-sidebar.svg'
 import Board from './Board'
-import ViewTask from './ViewTask'
-import AddTask from './AddTask'
+import Modal from './Modal'
 
 const Body: React.FC<{
   setIsSideBarHidden: React.Dispatch<React.SetStateAction<boolean>>
 }> = function ({ setIsSideBarHidden }) {
   const currentBoard = useStore(state => state.currentBoard)
-  const [taskInfo, setTaskInfo] = useState<{
-    task: {
-      name: string
-      description?: string
-      subtasks?: { task: string; completed: boolean }[]
-    }
-    showTask: boolean
-  }>({ task: { name: '' }, showTask: false })
+  const modalType = useStore(state => state.modalType)
   return (
     <motion.main
       layout
@@ -33,7 +25,7 @@ const Body: React.FC<{
       {currentBoard.status.length && (
         <div className="body__boards">
           {currentBoard.status.map(el => (
-            <Board setTaskInfo={setTaskInfo} key={nanoid()} {...el} />
+            <Board key={nanoid()} {...el} />
           ))}
           <div className="body__add-board">
             <p>+ new column</p>
@@ -54,22 +46,7 @@ const Body: React.FC<{
       </div>
       {ReactDOM.createPortal(
         <AnimatePresence>
-          {taskInfo.showTask && (
-            <>
-              {/* <ViewTask key={nanoid()} {...currentBoard.status[0].tasks[0]} /> */}
-              <AddTask />
-              <motion.div
-                key={nanoid()}
-                className="backdrop"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() =>
-                  setTaskInfo(prev => ({ ...prev, showTask: false }))
-                }
-              ></motion.div>
-            </>
-          )}
+          <Modal />
         </AnimatePresence>,
         document.getElementById('modal-root')!
       )}

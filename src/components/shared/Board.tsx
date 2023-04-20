@@ -2,6 +2,7 @@ import React from 'react'
 import { nanoid } from 'nanoid'
 
 import '../../sass/shared/board.scss'
+import useStore, { Modal } from '../store/store'
 
 const Board: React.FC<{
   name: string
@@ -9,20 +10,8 @@ const Board: React.FC<{
     name: string
     subtasks: { task: string; completed: boolean }[]
   }[]
-  setTaskInfo: React.Dispatch<
-    React.SetStateAction<{
-      task: {
-        name: string
-        description?: string
-        subtasks?: {
-          task: string
-          completed: boolean
-        }[]
-      }
-      showTask: boolean
-    }>
-  >
-}> = function ({ name, tasks, setTaskInfo }) {
+}> = function ({ name, tasks }) {
+  const setModalType = useStore(state => state.setModalType)
   return (
     <div className="board">
       <div className="board__header">
@@ -42,7 +31,13 @@ const Board: React.FC<{
           <div
             key={nanoid()}
             className="board__task"
-            onClick={() => setTaskInfo({ task, showTask: true })}
+            onClick={() =>
+              setModalType({
+                modalType: 'task-info',
+                showModal: true,
+                modalInfo: task,
+              })
+            }
           >
             <p>{task.name}</p>
             <p>

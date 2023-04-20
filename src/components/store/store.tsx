@@ -1,5 +1,14 @@
 import { create } from 'zustand'
 
+export type Modal = {
+  modalType: string
+  showModal: boolean
+  modalInfo?: {
+    name: string
+    description?: string
+    subtasks?: { task: string; completed: boolean }[]
+  }
+}
 type State = {
   boards: {
     name: string
@@ -27,6 +36,8 @@ type State = {
     }[]
   }
   setCurrentBoard: (id: number) => void
+  modalType: Modal
+  setModalType: (newType: Modal) => void
 }
 type Action = {
   toggleTheme: () => void
@@ -369,6 +380,10 @@ const useStore = create<State & Action>((set, get) => ({
       const board = get().boards.find(board => board.id === id)
       return { currentBoard: board }
     })
+  },
+  modalType: { modalType: '', showModal: false },
+  setModalType: function (newType) {
+    set(() => ({ modalType: newType }))
   },
   // increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
   // removeAllBears: () => set({ bears: 0 }),

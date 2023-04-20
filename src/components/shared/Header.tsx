@@ -22,6 +22,7 @@ const Header: React.FC<{
     },
   }
   const currentBoard = useStore(state => state.currentBoard)
+  const setModalType = useStore(state => state.setModalType)
 
   return (
     <motion.header
@@ -45,6 +46,7 @@ const Header: React.FC<{
         alt="down arrow"
       />
       <Button
+        onClick={() => setModalType({ modalType: 'add-task', showModal: true })}
         className={`header__add-task btn--one ${
           currentBoard.status.length ? '' : 'disabled'
         }`}
