@@ -63,7 +63,7 @@ const ViewTask: React.FC<{
   subtasks: { task: string; completed: boolean }[]
 }> = function ({ name, description, subtasks }) {
   const completed = subtasks.filter(el => el.completed).length
-  const currentBoard = useStore(state => state.currentBoard)
+  const currentBoard = useStore(state => state.currentBoard())
   const setModalType = useStore(state => state.setModalType)
   const [isStatusOpen, setIsStatusOpen] = useState(false)
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)

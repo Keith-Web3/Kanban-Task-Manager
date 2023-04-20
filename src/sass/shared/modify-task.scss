@@ -87,6 +87,10 @@
       border-radius: 20px;
     }
   }
+  .status-menu {
+    width: 100%;
+    margin-top: unset;
+  }
 }
 .subtasks {
   margin-top: $spacer * 1.5;
@@ -108,6 +112,7 @@
       border: 1px solid rgba(130, 143, 163, 0.25);
       border-radius: 4px;
       outline: none;
+      font-weight: 700;
 
       &::placeholder {
         color: #000112;

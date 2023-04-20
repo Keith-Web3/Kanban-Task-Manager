@@ -88,10 +88,10 @@
     inset: auto $spacer -100% auto;
     background-color: $white;
     font-weight: 500;
-    padding-right: $spacer * 4;
 
     p {
       cursor: pointer;
+      padding-right: $spacer * 4;
     }
     p:first-child {
       color: $gray-200;

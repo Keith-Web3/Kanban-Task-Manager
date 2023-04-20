@@ -14,7 +14,7 @@ import Modal from './Modal'
 const Body: React.FC<{
   setIsSideBarHidden: React.Dispatch<React.SetStateAction<boolean>>
 }> = function ({ setIsSideBarHidden }) {
-  const currentBoard = useStore(state => state.currentBoard)
+  const currentBoard = useStore(state => state.currentBoard())
   const modalType = useStore(state => state.modalType)
   return (
     <motion.main

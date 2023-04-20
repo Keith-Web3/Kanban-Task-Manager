@@ -17,12 +17,13 @@ const NavBar: React.FC<{
   setIsSideBarHidden: React.Dispatch<React.SetStateAction<boolean>>
 }> = function ({ isNavOpened, setIsSideBarHidden }) {
   const boards = useStore(state => state.boards)
-  const currentBoard = useStore(state => state.currentBoard)
+  const currentBoard = useStore(state => state.currentBoard())
   const setCurrentBoard = useStore(state => state.setCurrentBoard)
   const [theme, toggleTheme] = useStore(state => [
     state.theme,
     state.toggleTheme,
   ])
+  const setModalType = useStore(state => state.setModalType)
 
   return (
     <motion.nav
@@ -54,7 +55,13 @@ const NavBar: React.FC<{
           <div className="navbar__add-board navbar__board">
             <img src={boardIconP} alt="board" />
             <img src={plusP} alt="add board" />
-            <p>create new board</p>
+            <p
+              onClick={() =>
+                setModalType({ modalType: 'create-board', showModal: true })
+              }
+            >
+              create new board
+            </p>
           </div>
         </div>
         <div className="navbar__theme">

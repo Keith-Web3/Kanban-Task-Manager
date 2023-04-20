@@ -46,6 +46,7 @@
     font-weight: 700;
     cursor: pointer;
     transition: background-color 250ms linear;
+    text-transform: capitalize;
 
     input {
       display: none;
@@ -93,23 +94,6 @@
       }
     }
   }
-  // .status-menu {
-  //   color: $gray-200;
-  //   line-height: 24px;
-  //   box-shadow: 0 0 2px rgba($dark-400, 0.25);
-  //   padding: $spacer;
-  //   border-radius: 4px;
-  //   transform-origin: 50% 0;
-  //   // position: absolute;
-  //   background-color: $white;
-  //   // width: 100%;
-
-  //   p {
-  //     padding-inline: $spacer;
-  //     margin-bottom: $spacer;
-  //     cursor: pointer;
-  //   }
-  // }
   &__dropdown {
     position: absolute;
     padding: $spacer;

@@ -21,7 +21,7 @@ const Header: React.FC<{
       rotate: isNavOpened ? '180deg' : 0,
     },
   }
-  const currentBoard = useStore(state => state.currentBoard)
+  const currentBoard = useStore(state => state.currentBoard())
   const setModalType = useStore(state => state.setModalType)
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
 
@@ -89,7 +89,14 @@ const Header: React.FC<{
             transition={{ duration: 0.25 }}
             className="header__dropdown"
           >
-            <p className="dropdown__option">edit board</p>
+            <p
+              onClick={() =>
+                setModalType({ modalType: 'edit-board', showModal: true })
+              }
+              className="dropdown__option"
+            >
+              edit board
+            </p>
             <p className="dropdown__option">delete board</p>
           </motion.div>
         )}

@@ -1,0 +1,98 @@
+@use '../variables' as *;
+
+.modify-boards {
+  width: min(90%, 480px);
+  background-color: $white;
+  padding: $spacer * 2;
+  border-radius: 6px;
+  margin-inline: auto;
+
+  &__title {
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-transform: capitalize;
+    margin-bottom: $spacer;
+  }
+  & > label {
+    color: $gray-200;
+    font-weight: 700;
+    margin-top: $spacer;
+    text-transform: capitalize;
+
+    input {
+      display: block;
+      border: 1px solid rgba(130, 143, 163, 0.25);
+      border-radius: 4px;
+      outline: none;
+      padding: 0.75em;
+      width: 100% !important;
+      margin-top: $spacer * 0.5;
+
+      &::placeholder {
+        color: #000112;
+        opacity: 0.25;
+      }
+    }
+  }
+  .columns {
+    margin-top: $spacer * 1.5;
+    &__header {
+      color: $gray-200;
+      font-weight: 700;
+      margin-bottom: $spacer * 0.5;
+      text-transform: capitalize;
+    }
+    &__input {
+      display: flex;
+      align-items: center;
+      gap: $spacer;
+      margin-bottom: $spacer;
+
+      input {
+        display: block;
+        flex-grow: 1;
+        padding: $spacer * 0.75;
+        border: 1px solid rgba(130, 143, 163, 0.25);
+        border-radius: 4px;
+        outline: none;
+        font-weight: 700;
+
+        &::placeholder {
+          color: #000112;
+          opacity: 0.25;
+          font-weight: 700;
+        }
+      }
+      img {
+        object-fit: contain;
+        cursor: pointer;
+      }
+    }
+  }
+  button {
+    border: none;
+    outline: none;
+    padding: 0.75em 1.3em;
+    width: 100%;
+    border-radius: 20px;
+    text-transform: capitalize;
+    cursor: pointer;
+    font-weight: 700;
+
+    &:first-of-type {
+      background-color: rgba(99, 95, 199, 0.1);
+      color: $purple-main;
+      margin-bottom: $spacer * 1.5;
+    }
+    &:last-of-type {
+      background-color: $purple-main;
+      color: $white;
+
+      &:disabled {
+        cursor: not-allowed;
+        background-color: $dark-100;
+        opacity: 0.5;
+      }
+    }
+  }
+}

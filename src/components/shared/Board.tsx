@@ -1,25 +1,25 @@
 import React from 'react'
-import { nanoid } from 'nanoid'
 
 import '../../sass/shared/board.scss'
-import useStore, { Modal } from '../store/store'
+import useStore from '../store/store'
 
 const Board: React.FC<{
   name: string
+  colorTag: string
   tasks: {
     name: string
+    id: string
+    description: string
     subtasks: { task: string; completed: boolean }[]
   }[]
-}> = function ({ name, tasks }) {
+}> = function ({ name, tasks, colorTag }) {
   const setModalType = useStore(state => state.setModalType)
   return (
     <div className="board">
       <div className="board__header">
         <div
           style={{
-            backgroundColor:
-              '#' +
-              (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6),
+            backgroundColor: colorTag,
           }}
         ></div>
         <p>
@@ -29,7 +29,7 @@ const Board: React.FC<{
       <div className="board__tasks">
         {tasks.map(task => (
           <div
-            key={nanoid()}
+            key={task.id}
             className="board__task"
             onClick={() =>
               setModalType({

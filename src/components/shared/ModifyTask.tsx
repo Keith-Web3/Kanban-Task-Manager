@@ -13,7 +13,7 @@ const ModifyTask: React.FC<{ title: string; button: string }> = function ({
 }) {
   const id = useId()
   const [isStatusOpen, setIsStatusOpen] = useState(false)
-  const currentBoard = useStore(state => state.currentBoard)
+  const currentBoard = useStore(state => state.currentBoard())
 
   const statusVariants = {
     initial: { scale: 0 },
