@@ -26,27 +26,31 @@ const Board: React.FC<{
           {name} ({tasks.length})
         </p>
       </div>
-      <div className="board__tasks">
-        {tasks.map(task => (
-          <div
-            key={task.id}
-            className="board__task"
-            onClick={() =>
-              setModalType({
-                modalType: 'task-info',
-                showModal: true,
-                modalInfo: task,
-              })
-            }
-          >
-            <p>{task.name}</p>
-            <p>
-              {task.subtasks.filter(el => el.completed).length} of{' '}
-              {task.subtasks.length} subtasks
-            </p>
-          </div>
-        ))}
-      </div>
+      {tasks.length ? (
+        <div className="board__tasks">
+          {tasks.map(task => (
+            <div
+              key={task.id}
+              className="board__task"
+              onClick={() =>
+                setModalType({
+                  modalType: 'task-info',
+                  showModal: true,
+                  modalInfo: task,
+                })
+              }
+            >
+              <p>{task.name}</p>
+              <p>
+                {task.subtasks.filter(el => el.completed).length} of{' '}
+                {task.subtasks.length} subtasks
+              </p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        ''
+      )}
     </div>
   )
 }

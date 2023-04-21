@@ -4,24 +4,27 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 import cancelImg from '../../assets/icon-cross.svg'
 import '../../sass/shared/modify-boards.scss'
+import useStore from '../store/store'
 
 const ModifyBoards: React.FC<{ title: string; button: string }> = function ({
   title,
   button,
 }) {
   const id = useId()
-  const boardName = useRef<HTMLInputElement>(null)
+  const [boardName, setBoardName] = useState('')
   const [boardColumns, setBoardColumns] = useState([
     ['', nanoid()],
     ['', nanoid()],
   ])
+  const createBoard = useStore(state => state.createBoard)
   return (
     <div className="modify-boards">
       <p className="modify-boards__title">{title}</p>
       <label htmlFor={`${id}1`} className="subtask__input">
         board name
         <input
-          ref={boardName}
+          value={boardName}
+          onChange={e => setBoardName(e.target!.value)}
           type="text"
           placeholder="e.g. Web Design"
           id={`${id}1`}
@@ -75,8 +78,14 @@ const ModifyBoards: React.FC<{ title: string; button: string }> = function ({
       </button>
       <button
         disabled={
-          boardName.current?.value === '' ||
+          boardName.trim() === '' ||
           boardColumns.some(columns => columns[0].trim() === '')
+        }
+        onClick={() =>
+          createBoard(
+            boardName,
+            boardColumns.map(el => el[0])
+          )
         }
       >
         {button}

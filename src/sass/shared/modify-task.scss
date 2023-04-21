@@ -85,6 +85,13 @@
       background-color: $purple-main;
       text-transform: capitalize;
       border-radius: 20px;
+      cursor: pointer;
+
+      &:disabled {
+        cursor: not-allowed;
+        background-color: $dark-100;
+        opacity: 0.5;
+      }
     }
   }
   .status-menu {

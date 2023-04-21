@@ -22,11 +22,13 @@ const Body: React.FC<{
       // transition={{ type: 'spring', stiffness: 500, damping: 30 }}
       className="body"
     >
-      {currentBoard.status.length && (
+      {!currentBoard.status.every(el => !el.tasks.length) && (
         <div className="body__boards">
-          {currentBoard.status.map(el => (
-            <Board key={nanoid()} {...el} />
-          ))}
+          {currentBoard.status
+            .filter(el => el.tasks.length)
+            .map(el => (
+              <Board key={nanoid()} {...el} />
+            ))}
           <div className="body__add-board">
             <p>+ new column</p>
           </div>
