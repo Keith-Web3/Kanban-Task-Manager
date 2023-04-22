@@ -10,7 +10,7 @@ import chevron from '../../assets/icon-chevron-down.svg'
 type Task = {
   title: string
   description: string
-  subtasks: [string, string][]
+  subtasks: [string, string, boolean][]
   column: string
 }
 const modifyTaskReducer: (
@@ -49,7 +49,7 @@ const modifyTaskReducer: (
     case 'ADD-SUBTASK': {
       return {
         ...state,
-        subtasks: [...state.subtasks, ['', nanoid()]],
+        subtasks: [...state.subtasks, ['', nanoid(), false]],
       }
     }
     case 'REMOVE-SUBTASK': {
@@ -70,23 +70,35 @@ const modifyTaskReducer: (
     }
   }
 }
-const ModifyTask: React.FC<{ title: string; button: string }> = function ({
-  title,
-  button,
-}) {
+const ModifyTask: React.FC<{
+  title: string
+  button: string
+  editTask?: boolean
+}> = function ({ title, button, editTask = false }) {
   const id = useId()
   const [isStatusOpen, setIsStatusOpen] = useState(false)
-  const [taskInfo, dispatchTaskInfo] = useReducer(modifyTaskReducer, {
-    title: '',
-    description: '',
-    subtasks: [
-      ['', nanoid()],
-      ['', nanoid()],
-    ],
-    column: '',
-  })
+
+  const modalType = useStore(state => state.modalType)
   const currentBoard = useStore(state => state.currentBoard())
   const createTask = useStore(state => state.createTask)
+  const editTaskHandler = useStore(state => state.editTask)
+
+  const [taskInfo, dispatchTaskInfo] = useReducer(modifyTaskReducer, {
+    title: editTask ? modalType.modalInfo!.name : '',
+    description: editTask ? modalType.modalInfo!.description : '',
+    subtasks: editTask
+      ? modalType.modalInfo!.subtasks.map(
+          el => [el.task, nanoid(), el.completed] as [string, string, boolean]
+        )
+      : [
+          ['', nanoid(), false],
+          ['', nanoid(), false],
+        ],
+    // column: editTask ? modalType.modalInfo!.status : currentBoard.status[0].name ? currentBoard.status[0].name : ''
+    column: editTask
+      ? modalType.modalInfo!.status!
+      : currentBoard.status[0].name,
+  })
 
   const statusVariants = {
     initial: { scale: 0 },
@@ -222,14 +234,22 @@ const ModifyTask: React.FC<{ title: string; button: string }> = function ({
             taskInfo.subtasks.some(el => el[0].trim() === '')
           }
           onClick={() =>
-            createTask(
-              taskInfo.title,
-              taskInfo.description,
-              taskInfo.subtasks.map(el => el[0]),
-              taskInfo.column,
-              currentBoard.name,
-              currentBoard.id
-            )
+            editTask
+              ? editTaskHandler(
+                  taskInfo.title,
+                  taskInfo.description,
+                  taskInfo.subtasks,
+                  modalType.modalInfo!.status!,
+                  currentBoard.id,
+                  modalType.modalInfo!.id
+                )
+              : createTask(
+                  taskInfo.title,
+                  taskInfo.description,
+                  taskInfo.subtasks,
+                  taskInfo.column,
+                  currentBoard.id
+                )
           }
         >
           {button}

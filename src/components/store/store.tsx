@@ -7,7 +7,9 @@ export type Modal = {
   modalInfo?: {
     name: string
     description: string
+    id: string
     subtasks: { task: string; completed: boolean }[]
+    status?: string
   }
 }
 type Board = {
@@ -35,10 +37,17 @@ type State = {
   createTask: (
     title: string,
     description: string,
-    subtasks: string[] | [],
+    subtasks: [string, string, boolean][] | [],
     status: string,
-    boardName: string,
     boardId: number
+  ) => void
+  editTask: (
+    title: string,
+    description: string,
+    subtasks: [string, string, boolean][] | [],
+    status: string,
+    boardId: number,
+    taskId: string
   ) => void
   toggleTheme: () => void
   setCurrentBoard: (id: number) => void
@@ -262,23 +271,16 @@ const useStore = create<State & Action>((set, get) => ({
     },
   ],
   theme: window.getComputedStyle(document.body).content as 'light' | 'dark',
-  createTask: function (
-    title,
-    description,
-    subtasks,
-    status,
-    boardName,
-    boardId
-  ) {
-    const otherBoards = get().boards.filter(board => board.name !== boardName)
-    const currentBoard = get().boards.find(board => board.name === boardName)
+  createTask: function (title, description, subtasks, status, boardId) {
+    const otherBoards = get().boards.filter(board => board.id !== boardId)
+    const currentBoard = get().boards.find(board => board.id === boardId)
     const otherStatuses = currentBoard!.status.filter(el => el.name !== status)
     const currentStatus = currentBoard!.status.find(el => el.name === status)
     const newTask = {
       name: title,
       description: description,
-      id: Date.now(),
-      subtasks: subtasks.map(el => ({ task: el, completed: false })),
+      id: nanoid(),
+      subtasks: subtasks.map(el => ({ task: el[0], completed: el[2] })),
     }
     const allBoards = [
       ...otherBoards,
@@ -295,6 +297,27 @@ const useStore = create<State & Action>((set, get) => ({
     ]
     const setter = function () {
       return { boards: allBoards }
+    } as
+      | (State & Action)
+      | Partial<State & Action>
+      | ((state: State & Action) => (State & Action) | Partial<State & Action>)
+    set(setter)
+    get().setCurrentBoard(boardId)
+    get().setModalType({ modalType: '', showModal: false })
+  },
+  editTask: function (title, description, subtasks, status, boardId, taskId) {
+    const otherBoards = get().boards.filter(board => board.id !== boardId)
+    const currentBoard = { ...get().boards.find(board => board.id === boardId) }
+
+    const task = currentBoard
+      .status!.find(el => el.name === status)
+      ?.tasks.find(el => el.id === taskId)
+    task!.name = title
+    task!.description = description
+    task!.id = taskId
+    task!.subtasks = subtasks.map(el => ({ task: el[0], completed: el[2] }))
+    const setter = function () {
+      return { boards: [...otherBoards, currentBoard] }
     } as
       | (State & Action)
       | Partial<State & Action>

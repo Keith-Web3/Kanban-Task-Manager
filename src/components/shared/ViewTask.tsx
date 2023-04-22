@@ -63,8 +63,11 @@ const ViewTask: React.FC<{
   subtasks: { task: string; completed: boolean }[]
 }> = function ({ name, description, subtasks }) {
   const completed = subtasks.filter(el => el.completed).length
+
   const currentBoard = useStore(state => state.currentBoard())
   const setModalType = useStore(state => state.setModalType)
+  const modalType = useStore(state => state.modalType)
+
   const [isStatusOpen, setIsStatusOpen] = useState(false)
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
 
@@ -108,12 +111,21 @@ const ViewTask: React.FC<{
                 initial={{ y: '-10px', opacity: 0 }}
                 animate={{ y: '0px', opacity: 1 }}
                 exit={{ y: '-10px', opacity: 0 }}
-                // transition={{ duration: 0.25 }}
                 className="view-task__dropdown"
               >
                 <p
                   onClick={() =>
-                    setModalType({ modalType: 'edit-task', showModal: true })
+                    setModalType({
+                      modalType: 'edit-task',
+                      showModal: true,
+                      modalInfo: {
+                        name,
+                        description: description || '',
+                        subtasks,
+                        id: modalType.modalInfo!.id,
+                        status: modalType.modalInfo?.status,
+                      },
+                    })
                   }
                 >
                   edit task
@@ -136,7 +148,7 @@ const ViewTask: React.FC<{
             className="status-dropdown"
             onClick={() => setIsStatusOpen(prev => !prev)}
           >
-            <p>Doing</p>
+            <p>{modalType.modalInfo?.status}</p>
             <motion.img
               initial={{ rotate: '180deg' }}
               animate={{ rotate: isStatusOpen ? '0deg' : '180deg' }}

@@ -33,6 +33,8 @@
       font-weight: 700;
       font-size: 1.2rem;
       color: $dark-400;
+      overflow: hidden;
+      overflow-wrap: break-word;
     }
     p:nth-child(2) {
       color: $gray-200;

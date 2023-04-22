@@ -26,7 +26,7 @@ const Board: React.FC<{
           {name} ({tasks.length})
         </p>
       </div>
-      {tasks.length ? (
+      {tasks && (
         <div className="board__tasks">
           {tasks.map(task => (
             <div
@@ -36,7 +36,7 @@ const Board: React.FC<{
                 setModalType({
                   modalType: 'task-info',
                   showModal: true,
-                  modalInfo: task,
+                  modalInfo: { ...task, status: name },
                 })
               }
             >
@@ -48,8 +48,6 @@ const Board: React.FC<{
             </div>
           ))}
         </div>
-      ) : (
-        ''
       )}
     </div>
   )

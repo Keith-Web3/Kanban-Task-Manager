@@ -22,7 +22,7 @@ const Modal: React.FC = function () {
         <ModifyTask title="add new task" button="create task" />
       )}
       {modalType.modalType === 'edit-task' && (
-        <ModifyTask title="edit task" button="save changes" />
+        <ModifyTask editTask title="edit task" button="save changes" />
       )}
       {modalType.modalType === 'create-board' && (
         <ModifyBoards title="add new board" button="create new board" />
