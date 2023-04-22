@@ -74,6 +74,10 @@
         padding-inline: $spacer;
         margin-bottom: $spacer;
         cursor: pointer;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
       }
     }
     & > button {

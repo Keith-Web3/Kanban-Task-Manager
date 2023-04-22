@@ -6,9 +6,14 @@ const Button: React.FC<{
   children: ReactNode
   className: string
   onClick?: React.MouseEventHandler<HTMLButtonElement>
-}> = function ({ children, className, onClick }) {
+  disabled?: boolean
+}> = function ({ children, className, onClick, disabled = false }) {
   return (
-    <button onClick={onClick} className={`button ${className}`}>
+    <button
+      disabled={disabled}
+      onClick={onClick}
+      className={`button ${className}`}
+    >
       {children}
     </button>
   )

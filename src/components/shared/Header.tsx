@@ -67,9 +67,8 @@ const Header: React.FC<{
       />
       <Button
         onClick={() => setModalType({ modalType: 'add-task', showModal: true })}
-        className={`header__add-task btn--one ${
-          currentBoard.status.length ? '' : 'disabled'
-        }`}
+        className="header__add-task btn--on"
+        disabled={currentBoard.status.length === 0}
       >
         <img src={add} alt="add board" />
         <p>add new task</p>

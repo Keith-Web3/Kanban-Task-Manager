@@ -55,8 +55,9 @@
     margin-left: auto;
     cursor: pointer;
 
-    &.disabled {
+    &:disabled {
       opacity: 0.25;
+      cursor: not-allowed;
     }
 
     p {
