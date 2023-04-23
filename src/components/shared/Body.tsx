@@ -22,16 +22,16 @@ const Body: React.FC<{
       className="body"
     >
       {!currentBoard.status.every(el => !el.tasks.length) && (
-        <div className="body__boards">
+        <motion.div layout className="body__boards">
           {currentBoard.status
             .filter(el => el.tasks.length)
             .map(el => (
               <Board key={nanoid()} {...el} />
             ))}
-          <div className="body__add-board">
+          <motion.div layout className="body__add-board">
             <p>+ new column</p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
       <div className="empty">
         <p className="empty__message">
