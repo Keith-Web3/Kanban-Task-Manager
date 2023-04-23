@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { nanoid } from 'nanoid'
 
 import ModifyTask from './ModifyTask'
@@ -8,13 +8,13 @@ import useStore from '../store/store'
 import ModifyBoards from './ModifyBoards'
 
 const Modal: React.FC = function () {
-  const currentBoard = useStore(state => state.currentBoard())
+  const currentBoard = useStore(state => state.currentBoard)
   const [modalType, setModalType] = useStore(state => [
     state.modalType,
     state.setModalType,
   ])
-  return modalType.showModal ? (
-    <>
+  return (
+    <AnimatePresence>
       {modalType.modalType === 'task-info' && (
         <ViewTask {...modalType.modalInfo!} />
       )}
@@ -22,7 +22,7 @@ const Modal: React.FC = function () {
         <ModifyTask title="add new task" button="create task" />
       )}
       {modalType.modalType === 'edit-task' && (
-        <ModifyTask editTask title="edit task" button="save changes" />
+        <ModifyTask title="edit task" button="save changes" />
       )}
       {modalType.modalType === 'create-board' && (
         <ModifyBoards title="add new board" button="create new board" />
@@ -30,19 +30,19 @@ const Modal: React.FC = function () {
       {modalType.modalType === 'edit-board' && (
         <ModifyBoards title="edit board" button="save changes" />
       )}
-      <motion.div
-        key={nanoid()}
-        className="backdrop"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={() => {
-          setModalType({ showModal: false, modalType: '' })
-        }}
-      ></motion.div>
-    </>
-  ) : (
-    <></>
+      {modalType.showModal && (
+        <motion.div
+          key={nanoid()}
+          className="backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => {
+            setModalType({ showModal: false, modalType: '' })
+          }}
+        ></motion.div>
+      )}
+    </AnimatePresence>
   )
 }
 

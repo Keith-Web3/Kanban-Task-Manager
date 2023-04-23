@@ -50,10 +50,15 @@ const Header: React.FC<{
       // transition={{ type: 'spring', stiffness: 500, damping: 30 }}
       className="header"
     >
-      <div className="header__sidebar-hidden">
+      <motion.div
+        layout
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="header__sidebar-hidden"
+      >
         <img src={logo} alt="logo" />
         <p>kanban</p>
-      </div>
+      </motion.div>
       <img className="header__logo" src={logo} alt="logo" />
       <p className="header__title">{currentBoard.name}</p>
       <motion.img

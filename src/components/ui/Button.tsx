@@ -1,4 +1,5 @@
 import React, { ReactNode } from 'react'
+import { motion } from 'framer-motion'
 
 import '../../sass/ui/button.scss'
 
@@ -9,13 +10,14 @@ const Button: React.FC<{
   disabled?: boolean
 }> = function ({ children, className, onClick, disabled = false }) {
   return (
-    <button
+    <motion.button
+      layout
       disabled={disabled}
       onClick={onClick}
       className={`button ${className}`}
     >
       {children}
-    </button>
+    </motion.button>
   )
 }
 

@@ -18,8 +18,7 @@ const Body: React.FC<{
   const modalType = useStore(state => state.modalType)
   return (
     <motion.main
-      layout
-      // transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+      layout // transition={{ type: 'spring', stiffness: 500, damping: 30 }}
       className="body"
     >
       {!currentBoard.status.every(el => !el.tasks.length) && (
@@ -46,12 +45,7 @@ const Body: React.FC<{
       <div className="hide-sidebar" onClick={() => setIsSideBarHidden(false)}>
         <img src={eye} alt="eye" />
       </div>
-      {ReactDOM.createPortal(
-        <AnimatePresence>
-          <Modal />
-        </AnimatePresence>,
-        document.getElementById('modal-root')!
-      )}
+      {ReactDOM.createPortal(<Modal />, document.getElementById('modal-root')!)}
     </motion.main>
   )
 }

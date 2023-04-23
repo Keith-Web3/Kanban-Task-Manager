@@ -2,6 +2,7 @@ import React from 'react'
 
 import '../../sass/shared/board.scss'
 import useStore from '../store/store'
+import { motion } from 'framer-motion'
 
 const Board: React.FC<{
   name: string
@@ -29,7 +30,8 @@ const Board: React.FC<{
       {tasks && (
         <div className="board__tasks">
           {tasks.map(task => (
-            <div
+            <motion.div
+              layout
               key={task.id}
               className="board__task"
               onClick={() =>
@@ -45,7 +47,7 @@ const Board: React.FC<{
                 {task.subtasks.filter(el => el.completed).length} of{' '}
                 {task.subtasks.length} subtasks
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       )}
