@@ -309,15 +309,29 @@ const useStore = create<State & Action>((set, get) => ({
     const otherBoards = get().boards.filter(board => board.id !== boardId)
     const currentBoard = { ...get().boards.find(board => board.id === boardId) }
 
-    const task = currentBoard
-      .status!.find(el => el.name === status)
-      ?.tasks.find(el => el.id === taskId)
-    task!.name = title
-    task!.description = description
-    task!.id = taskId
-    task!.subtasks = subtasks.map(el => ({ task: el[0], completed: el[2] }))
+    const task = {
+      name: title,
+      description,
+      id: taskId,
+      subtasks: subtasks.map(el => ({ task: el[0], completed: el[2] })),
+    }
+    const newStatus = currentBoard
+      .status!.map(status =>
+        status.tasks.some(task => task.id === taskId)
+          ? {
+              ...status,
+              tasks: status.tasks.filter(el => el.id !== taskId),
+            }
+          : status
+      )
+      .map(el =>
+        el.name === status ? { ...el, tasks: [...el.tasks, task] } : el
+      )
+
     const setter = function () {
-      return { boards: [...otherBoards, currentBoard] }
+      return {
+        boards: [{ ...currentBoard, status: newStatus }, ...otherBoards],
+      }
     } as
       | (State & Action)
       | Partial<State & Action>

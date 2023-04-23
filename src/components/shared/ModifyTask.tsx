@@ -239,7 +239,7 @@ const ModifyTask: React.FC<{
                   taskInfo.title,
                   taskInfo.description,
                   taskInfo.subtasks,
-                  modalType.modalInfo!.status!,
+                  taskInfo.column,
                   currentBoard.id,
                   modalType.modalInfo!.id
                 )
