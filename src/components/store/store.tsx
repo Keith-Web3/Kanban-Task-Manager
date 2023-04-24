@@ -7,7 +7,7 @@ export type Modal = {
   modalInfo?: {
     name: string
     description: string
-    id: string
+    id: number
     subtasks: { task: string; completed: boolean }[]
     status?: string
   }
@@ -18,10 +18,11 @@ type Board = {
   status: {
     name: string
     colorTag: string
+    id: number
     tasks:
       | {
           name: string
-          id: string
+          id: number
           description: string
           subtasks: { task: string; completed: boolean }[]
         }[]
@@ -47,7 +48,12 @@ type State = {
     subtasks: [string, string, boolean][] | [],
     status: string,
     boardId: number,
-    taskId: string
+    taskId: number
+  ) => void
+  editBoard: (
+    boardName: string,
+    boardId: number,
+    columns: { columnName: string; columnId: number }[]
   ) => void
   toggleTheme: () => void
   setCurrentBoard: (id: number) => void
@@ -65,6 +71,7 @@ const useStore = create<State & Action>((set, get) => ({
       status: [
         {
           name: 'Todo',
+          id: Date.now(),
           colorTag:
             '#' +
             (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6),
@@ -73,7 +80,7 @@ const useStore = create<State & Action>((set, get) => ({
               name: 'Build UI for onboarding flow',
               description:
                 "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
-              id: nanoid(),
+              id: Date.now(),
               subtasks: [
                 { task: 'Do this', completed: false },
                 { task: 'Do that', completed: false },
@@ -84,14 +91,14 @@ const useStore = create<State & Action>((set, get) => ({
               name: 'Build UI for search',
               description:
                 "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
-              id: nanoid(),
+              id: Date.now(),
               subtasks: [{ task: 'build ui', completed: false }],
             },
             {
               name: 'Build settings UI',
               description:
                 "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
-              id: nanoid(),
+              id: Date.now(),
               subtasks: [
                 { task: 'build settings', completed: false },
                 { task: 'buuld gret', completed: false },
@@ -101,6 +108,7 @@ const useStore = create<State & Action>((set, get) => ({
         },
         {
           name: 'Doing',
+          id: Date.now(),
           colorTag:
             '#' +
             (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6),
@@ -109,7 +117,7 @@ const useStore = create<State & Action>((set, get) => ({
               name: 'Design settings and search pages',
               description:
                 "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
-              id: nanoid(),
+              id: Date.now(),
               subtasks: [
                 {
                   task: 'design settings',
@@ -135,6 +143,7 @@ const useStore = create<State & Action>((set, get) => ({
       status: [
         {
           name: 'Todo',
+          id: Date.now(),
           colorTag:
             '#' +
             (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6),
@@ -143,7 +152,7 @@ const useStore = create<State & Action>((set, get) => ({
               name: 'Build UI for onboarding flow',
               description:
                 "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
-              id: nanoid(),
+              id: Date.now(),
               subtasks: [
                 { task: 'Do this', completed: false },
                 { task: 'Do that', completed: false },
@@ -154,14 +163,14 @@ const useStore = create<State & Action>((set, get) => ({
               name: 'Build UI for search',
               description:
                 "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
-              id: nanoid(),
+              id: Date.now(),
               subtasks: [{ task: 'build ui', completed: false }],
             },
             {
               name: 'Build settings UI',
               description:
                 "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
-              id: nanoid(),
+              id: Date.now(),
               subtasks: [
                 { task: 'build settings', completed: false },
                 { task: 'buuld gret', completed: false },
@@ -171,6 +180,7 @@ const useStore = create<State & Action>((set, get) => ({
         },
         {
           name: 'roadmap',
+          id: Date.now(),
           colorTag:
             '#' +
             (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6),
@@ -179,7 +189,7 @@ const useStore = create<State & Action>((set, get) => ({
               name: 'Design settings and search pages',
               description:
                 "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
-              id: nanoid(),
+              id: Date.now(),
               subtasks: [
                 {
                   task: 'design settings',
@@ -205,6 +215,7 @@ const useStore = create<State & Action>((set, get) => ({
       status: [
         {
           name: 'Todo',
+          id: Date.now(),
           colorTag:
             '#' +
             (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6),
@@ -213,7 +224,7 @@ const useStore = create<State & Action>((set, get) => ({
               name: 'Build UI for onboarding flow',
               description:
                 "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
-              id: nanoid(),
+              id: Date.now(),
               subtasks: [
                 { task: 'Do this', completed: false },
                 { task: 'Do that', completed: false },
@@ -224,14 +235,14 @@ const useStore = create<State & Action>((set, get) => ({
               name: 'Build UI for search',
               description:
                 "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
-              id: nanoid(),
+              id: Date.now(),
               subtasks: [{ task: 'build ui', completed: false }],
             },
             {
               name: 'Build settings UI',
               description:
                 "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
-              id: nanoid(),
+              id: Date.now(),
               subtasks: [
                 { task: 'build settings', completed: false },
                 { task: 'buuld gret', completed: false },
@@ -241,6 +252,7 @@ const useStore = create<State & Action>((set, get) => ({
         },
         {
           name: 'Doing',
+          id: Date.now(),
           colorTag:
             '#' +
             (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6),
@@ -249,7 +261,7 @@ const useStore = create<State & Action>((set, get) => ({
               name: 'Design settings and search pages',
               description:
                 "We know what we're planning to build for version one. Now we need to finalise the first pricing model we'll use. Keep iterating the subtasks until we have a coherent proposition.",
-              id: nanoid(),
+              id: Date.now(),
               subtasks: [
                 {
                   task: 'design settings',
@@ -279,7 +291,7 @@ const useStore = create<State & Action>((set, get) => ({
     const newTask = {
       name: title,
       description: description,
-      id: nanoid(),
+      id: Date.now(),
       subtasks: subtasks.map(el => ({ task: el[0], completed: el[2] })),
     }
     const allBoards = [
@@ -296,7 +308,7 @@ const useStore = create<State & Action>((set, get) => ({
       },
     ]
     const setter = function () {
-      return { boards: allBoards }
+      return { boards: allBoards.sort((a, b) => a.id! - b.id!) }
     } as
       | (State & Action)
       | Partial<State & Action>
@@ -330,7 +342,10 @@ const useStore = create<State & Action>((set, get) => ({
 
     const setter = function () {
       return {
-        boards: [{ ...currentBoard, status: newStatus }, ...otherBoards],
+        boards: [
+          { ...currentBoard, status: newStatus.sort((a, b) => a.id - b.id) },
+          ...otherBoards,
+        ].sort((a, b) => a.id! - b.id!),
       }
     } as
       | (State & Action)
@@ -350,9 +365,38 @@ const useStore = create<State & Action>((set, get) => ({
           .toString(16)
           .substr(1, 6)}`,
         tasks: [],
+        id: Date.now(),
       })),
     }
-    set(() => ({ boards: [...get().boards, board] }))
+    set(() => ({
+      boards: [...get().boards, board].sort((a, b) => a.id - b.id),
+    }))
+    get().setModalType({ modalType: '', showModal: false })
+  },
+  editBoard: function (boardName, boardId, allColumns) {
+    const otherBoards = get().boards.filter(board => board.id !== boardId)
+    const currentBoard = get().boards.find(board => board.id === boardId)
+
+    const newBoard: Board = {
+      name: boardName,
+      id: currentBoard!.id,
+      status: allColumns.map(({ columnName, columnId }) => {
+        const status = currentBoard?.status.find(el => el.id === columnId)
+        if (status) return { ...status, name: columnName }
+        return {
+          name: columnName,
+          colorTag: `#${(0x1000000 + Math.random() * 0xffffff)
+            .toString(16)
+            .substr(1, 6)}`,
+          tasks: [],
+          id: Date.now(),
+        }
+      }),
+    }
+    set(() => ({
+      boards: [...otherBoards, newBoard].sort((a, b) => a.id - b.id),
+    }))
+    get().setCurrentBoard(boardId)
     get().setModalType({ modalType: '', showModal: false })
   },
   currentBoard: () => get().boards[0],

@@ -9,7 +9,7 @@ const Board: React.FC<{
   colorTag: string
   tasks: {
     name: string
-    id: string
+    id: number
     description: string
     subtasks: { task: string; completed: boolean }[]
   }[]

@@ -10,14 +10,13 @@ const Button: React.FC<{
   disabled?: boolean
 }> = function ({ children, className, onClick, disabled = false }) {
   return (
-    <motion.button
-      layout
+    <button
       disabled={disabled}
       onClick={onClick}
       className={`button ${className}`}
     >
       {children}
-    </motion.button>
+    </button>
   )
 }
 

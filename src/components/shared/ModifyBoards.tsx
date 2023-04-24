@@ -1,4 +1,4 @@
-import React, { useId, useRef, useState } from 'react'
+import React, { useId, useState } from 'react'
 import { nanoid } from 'nanoid'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -6,17 +6,29 @@ import cancelImg from '../../assets/icon-cross.svg'
 import '../../sass/shared/modify-boards.scss'
 import useStore from '../store/store'
 
-const ModifyBoards: React.FC<{ title: string; button: string }> = function ({
-  title,
-  button,
-}) {
+const ModifyBoards: React.FC<{
+  title: string
+  button: string
+  editBoard?: boolean
+}> = function ({ title, button, editBoard = false }) {
   const id = useId()
-  const [boardName, setBoardName] = useState('')
-  const [boardColumns, setBoardColumns] = useState([
-    ['', nanoid()],
-    ['', nanoid()],
+  const modalType = useStore(state => state.modalType)
+  const currentBoard = useStore(state => state.currentBoard)
+  const [boardName, setBoardName] = useState(
+    editBoard ? currentBoard().name : ''
+  )
+  const [boardColumns, setBoardColumns] = useState<[string, number][]>(
+    editBoard
+      ? currentBoard().status.map(el => [el.name, el.id])
+      : [
+          ['', Date.now() + 1],
+          ['', Date.now() + 1],
+        ]
+  )
+  const [createBoard, editBoardHandler] = useStore(state => [
+    state.createBoard,
+    state.editBoard,
   ])
-  const createBoard = useStore(state => state.createBoard)
   return (
     <div className="modify-boards">
       <p className="modify-boards__title">{title}</p>
@@ -72,7 +84,7 @@ const ModifyBoards: React.FC<{ title: string; button: string }> = function ({
         </AnimatePresence>
       </div>
       <button
-        onClick={() => setBoardColumns(prev => [...prev, ['', nanoid()]])}
+        onClick={() => setBoardColumns(prev => [...prev, ['', Date.now()]])}
       >
         + add new column
       </button>
@@ -82,10 +94,19 @@ const ModifyBoards: React.FC<{ title: string; button: string }> = function ({
           boardColumns.some(columns => columns[0].trim() === '')
         }
         onClick={() =>
-          createBoard(
-            boardName,
-            boardColumns.map(el => el[0])
-          )
+          editBoard
+            ? editBoardHandler(
+                boardName,
+                currentBoard().id,
+                boardColumns.map(([columnName, columnId]) => ({
+                  columnName,
+                  columnId,
+                }))
+              )
+            : createBoard(
+                boardName,
+                boardColumns.map(el => el[0])
+              )
         }
       >
         {button}

@@ -83,6 +83,8 @@ const ModifyTask: React.FC<{
   const createTask = useStore(state => state.createTask)
   const editTaskHandler = useStore(state => state.editTask)
 
+  console.log(editTask)
+
   const [taskInfo, dispatchTaskInfo] = useReducer(modifyTaskReducer, {
     title: editTask ? modalType.modalInfo!.name : '',
     description: editTask ? modalType.modalInfo!.description : '',

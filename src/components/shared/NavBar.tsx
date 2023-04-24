@@ -1,5 +1,4 @@
 import React from 'react'
-import { nanoid } from 'nanoid'
 import { motion } from 'framer-motion'
 
 import useStore from '../store/store'
@@ -25,11 +24,34 @@ const NavBar: React.FC<{
   ])
   const setModalType = useStore(state => state.setModalType)
 
+  const navVariant = {
+    initial: {
+      opacity: 0,
+    },
+    animate: {
+      opacity: Number(isNavOpened),
+      transition: {
+        when: 'beforeChildren',
+        staggerChildren: 0.08,
+      },
+    },
+  }
+  const boardVariants = {
+    initial: {
+      opacity: 0,
+      scaleX: 0,
+    },
+    animate: {
+      opacity: 1,
+      scaleX: 1,
+    },
+  }
   return (
     <motion.nav
       layout
-      initial={{ opacity: 0 }}
-      animate={{ opacity: Number(isNavOpened) }}
+      variants={navVariant}
+      initial="initial"
+      animate="animate"
       // transition={{ type: 'spring', stiffness: 900, damping: 30 }}
       className={`navbar ${isNavOpened ? 'active' : ''}`}
     >
@@ -40,9 +62,10 @@ const NavBar: React.FC<{
         </div>
         <p className="navbar__title">All boards({boards.length})</p>
         <div className="navbar__boards">
-          {boards.map(board => (
-            <div
-              key={nanoid()}
+          {boards.map((board, idx) => (
+            <motion.div
+              variants={boardVariants}
+              key={idx}
               className={`navbar__board ${
                 board.id === currentBoard.id ? 'active' : ''
               }`}
@@ -50,7 +73,7 @@ const NavBar: React.FC<{
             >
               <img src={boardIcon} alt="board" />
               <p>{board.name}</p>
-            </div>
+            </motion.div>
           ))}
           <div className="navbar__add-board navbar__board">
             <img src={boardIconP} alt="board" />

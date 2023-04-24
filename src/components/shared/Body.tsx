@@ -45,7 +45,10 @@ const Body: React.FC<{
       <div className="hide-sidebar" onClick={() => setIsSideBarHidden(false)}>
         <img src={eye} alt="eye" />
       </div>
-      {ReactDOM.createPortal(<Modal />, document.getElementById('modal-root')!)}
+      {ReactDOM.createPortal(
+        modalType.showModal ? <Modal /> : <></>,
+        document.getElementById('modal-root')!
+      )}
     </motion.main>
   )
 }
