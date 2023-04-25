@@ -1,7 +1,7 @@
 @use '../variables' as *;
 
 .modify-boards {
-  width: min(90%, 480px);
+  width: min(95%, 480px);
   background-color: $white;
   padding: $spacer * 2;
   border-radius: 6px;

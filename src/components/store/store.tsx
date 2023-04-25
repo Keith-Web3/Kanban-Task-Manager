@@ -10,6 +10,7 @@ export type Modal = {
     id: number
     subtasks: { task: string; completed: boolean }[]
     status?: string
+    statusId?: number
   }
 }
 type Board = {
@@ -39,14 +40,14 @@ type State = {
     title: string,
     description: string,
     subtasks: [string, string, boolean][] | [],
-    status: string,
+    status: number,
     boardId: number
   ) => void
   editTask: (
     title: string,
     description: string,
     subtasks: [string, string, boolean][] | [],
-    status: string,
+    status: number,
     boardId: number,
     taskId: number
   ) => void
@@ -286,8 +287,9 @@ const useStore = create<State & Action>((set, get) => ({
   createTask: function (title, description, subtasks, status, boardId) {
     const otherBoards = get().boards.filter(board => board.id !== boardId)
     const currentBoard = get().boards.find(board => board.id === boardId)
-    const otherStatuses = currentBoard!.status.filter(el => el.name !== status)
-    const currentStatus = currentBoard!.status.find(el => el.name === status)
+    const otherStatuses = currentBoard!.status.filter(el => el.id !== status)
+    const currentStatus = currentBoard!.status.find(el => el.id === status)
+
     const newTask = {
       name: title,
       description: description,
@@ -302,7 +304,9 @@ const useStore = create<State & Action>((set, get) => ({
           ...otherStatuses,
           {
             ...currentStatus,
-            tasks: [...currentStatus!.tasks, newTask],
+            tasks: [...currentStatus!.tasks, newTask].sort(
+              (a, b) => b.id - a.id
+            ),
           },
         ],
       },
@@ -332,13 +336,16 @@ const useStore = create<State & Action>((set, get) => ({
         status.tasks.some(task => task.id === taskId)
           ? {
               ...status,
-              tasks: status.tasks.filter(el => el.id !== taskId),
+              tasks: status.tasks
+                .filter(el => el.id !== taskId)
+                .sort((a, b) => b.id - a.id),
             }
           : status
       )
       .map(el =>
-        el.name === status ? { ...el, tasks: [...el.tasks, task] } : el
+        el.id === status ? { ...el, tasks: [...el.tasks, task] } : el
       )
+      .sort((a, b) => a.id - b.id)
 
     const setter = function () {
       return {
@@ -359,13 +366,13 @@ const useStore = create<State & Action>((set, get) => ({
     const board: Board = {
       name: boardName,
       id: Date.now(),
-      status: boardColumns.map(column => ({
+      status: boardColumns.map((column, idx) => ({
         name: column,
         colorTag: `#${(0x1000000 + Math.random() * 0xffffff)
           .toString(16)
           .substr(1, 6)}`,
         tasks: [],
-        id: Date.now(),
+        id: Date.now() + idx,
       })),
     }
     set(() => ({
@@ -380,7 +387,7 @@ const useStore = create<State & Action>((set, get) => ({
     const newBoard: Board = {
       name: boardName,
       id: currentBoard!.id,
-      status: allColumns.map(({ columnName, columnId }) => {
+      status: allColumns.map(({ columnName, columnId }, idx) => {
         const status = currentBoard?.status.find(el => el.id === columnId)
         if (status) return { ...status, name: columnName }
         return {
@@ -389,7 +396,7 @@ const useStore = create<State & Action>((set, get) => ({
             .toString(16)
             .substr(1, 6)}`,
           tasks: [],
-          id: Date.now(),
+          id: Date.now() + idx,
         }
       }),
     }

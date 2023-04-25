@@ -11,21 +11,17 @@ type Task = {
   title: string
   description: string
   subtasks: [string, string, boolean][]
-  column: string
+  column: number
 }
 const modifyTaskReducer: (
   state: Task,
   action:
     | {
         payload: string
-        type:
-          | 'TITLE'
-          | 'DESCRIPTION'
-          | 'COLUMN'
-          | 'ADD-SUBTASK'
-          | 'REMOVE-SUBTASK'
+        type: 'TITLE' | 'DESCRIPTION' | 'ADD-SUBTASK' | 'REMOVE-SUBTASK'
       }
     | { payload: [string, number]; type: 'EDIT-SUBTASK' }
+    | { payload: number; type: 'COLUMN' }
 ) => Task = function (state, action) {
   switch (action.type) {
     case 'TITLE': {
@@ -83,8 +79,6 @@ const ModifyTask: React.FC<{
   const createTask = useStore(state => state.createTask)
   const editTaskHandler = useStore(state => state.editTask)
 
-  console.log(editTask)
-
   const [taskInfo, dispatchTaskInfo] = useReducer(modifyTaskReducer, {
     title: editTask ? modalType.modalInfo!.name : '',
     description: editTask ? modalType.modalInfo!.description : '',
@@ -98,8 +92,8 @@ const ModifyTask: React.FC<{
         ],
     // column: editTask ? modalType.modalInfo!.status : currentBoard.status[0].name ? currentBoard.status[0].name : ''
     column: editTask
-      ? modalType.modalInfo!.status!
-      : currentBoard.status[0].name,
+      ? modalType.modalInfo!.statusId!
+      : currentBoard.status[0].id,
   })
 
   const statusVariants = {
@@ -197,7 +191,12 @@ const ModifyTask: React.FC<{
           className="status-dropdown"
           onClick={() => setIsStatusOpen(prev => !prev)}
         >
-          <p>{taskInfo.column}</p>
+          <p>
+            {
+              currentBoard.status.find(stat => stat.id === taskInfo.column)
+                ?.name
+            }
+          </p>
           <motion.img
             initial={{ rotate: '180deg' }}
             animate={{ rotate: isStatusOpen ? '0deg' : '180deg' }}
@@ -218,7 +217,7 @@ const ModifyTask: React.FC<{
               {currentBoard.status.map(el => (
                 <motion.p
                   onClick={() => {
-                    dispatchTaskInfo({ payload: el.name, type: 'COLUMN' })
+                    dispatchTaskInfo({ payload: el.id, type: 'COLUMN' })
                     setIsStatusOpen(false)
                   }}
                   key={nanoid()}

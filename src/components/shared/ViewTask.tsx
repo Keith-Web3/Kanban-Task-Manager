@@ -122,6 +122,7 @@ const ViewTask: React.FC<{
                         name,
                         description: description || '',
                         subtasks,
+                        statusId: modalType.modalInfo?.statusId,
                         id: modalType.modalInfo!.id,
                         status: modalType.modalInfo?.status,
                       },

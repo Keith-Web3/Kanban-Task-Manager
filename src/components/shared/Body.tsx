@@ -29,7 +29,7 @@ const Body: React.FC<{
               <Board key={nanoid()} {...el} />
             ))}
           <motion.div layout className="body__add-board">
-            <p>+ new column</p>
+            <motion.p layout>+ new column</motion.p>
           </motion.div>
         </motion.div>
       )}

@@ -7,26 +7,28 @@ import { motion } from 'framer-motion'
 const Board: React.FC<{
   name: string
   colorTag: string
+  id: number
   tasks: {
     name: string
     id: number
     description: string
     subtasks: { task: string; completed: boolean }[]
   }[]
-}> = function ({ name, tasks, colorTag }) {
+}> = function ({ name, tasks, id, colorTag }) {
   const setModalType = useStore(state => state.setModalType)
   return (
     <div className="board">
-      <div className="board__header">
-        <div
+      <motion.div layout className="board__header">
+        <motion.div
+          layout
           style={{
             backgroundColor: colorTag,
           }}
-        ></div>
-        <p>
+        ></motion.div>
+        <motion.p layout>
           {name} ({tasks.length})
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
       {tasks && (
         <div className="board__tasks">
           {tasks.map(task => (
@@ -38,7 +40,7 @@ const Board: React.FC<{
                 setModalType({
                   modalType: 'task-info',
                   showModal: true,
-                  modalInfo: { ...task, status: name },
+                  modalInfo: { ...task, statusId: id, status: name },
                 })
               }
             >
