@@ -19,7 +19,7 @@ const NavBar: React.FC<{
   const currentBoard = useStore(state => state.currentBoard())
   const setCurrentBoard = useStore(state => state.setCurrentBoard)
   const [theme, toggleTheme] = useStore(state => [
-    state.theme,
+    state.theme(),
     state.toggleTheme,
   ])
   const setModalType = useStore(state => state.setModalType)
@@ -90,7 +90,7 @@ const NavBar: React.FC<{
         <div className="navbar__theme">
           <img src={lightTheme} alt="light-theme" />
           <div
-            data-ison={theme === 'light'}
+            data-ison={theme === 'dark'}
             className="navbar__theme-toggler"
             onClick={toggleTheme}
           >

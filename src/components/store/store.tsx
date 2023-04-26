@@ -32,7 +32,7 @@ type Board = {
 }
 type State = {
   boards: Board[]
-  theme: 'light' | 'dark'
+  theme: () => 'light' | 'dark' | 'normal'
   currentBoard: () => Board
   modalType: Modal
   createBoard: (boardName: string, boardColumns: string[]) => void
@@ -63,7 +63,6 @@ type State = {
 type Action = {
   toggleTheme: () => void
 }
-
 const useStore = create<State & Action>((set, get) => ({
   boards: [
     {
@@ -283,7 +282,11 @@ const useStore = create<State & Action>((set, get) => ({
       ],
     },
   ],
-  theme: window.getComputedStyle(document.body).content as 'light' | 'dark',
+  theme: () =>
+    JSON.parse(window.getComputedStyle(document.body).content) as
+      | 'light'
+      | 'dark'
+      | 'normal',
   createTask: function (title, description, subtasks, status, boardId) {
     const otherBoards = get().boards.filter(board => board.id !== boardId)
     const currentBoard = get().boards.find(board => board.id === boardId)
@@ -409,9 +412,8 @@ const useStore = create<State & Action>((set, get) => ({
   currentBoard: () => get().boards[0],
   toggleTheme: function () {
     set(() => {
-      console.log(get())
-      if (get().theme === 'light') return { theme: 'dark' }
-      return { theme: 'light' }
+      if (get().theme() === 'light') return { theme: () => 'dark' }
+      return { theme: () => 'light' }
     })
   },
   setCurrentBoard: function (id) {

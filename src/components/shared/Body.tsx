@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { nanoid } from 'nanoid'
@@ -16,11 +16,12 @@ const Body: React.FC<{
 }> = function ({ setIsSideBarHidden }) {
   const currentBoard = useStore(state => state.currentBoard())
   const modalType = useStore(state => state.modalType)
+  const colorTheme = useStore(state => state.theme())
+
+  console.log(colorTheme)
+
   return (
-    <motion.main
-      layout // transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-      className="body"
-    >
+    <motion.main layout className="body">
       {!currentBoard.status.every(el => !el.tasks.length) && (
         <motion.div layout className="body__boards">
           {currentBoard.status
