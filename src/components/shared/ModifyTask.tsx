@@ -78,6 +78,7 @@ const ModifyTask: React.FC<{
   const currentBoard = useStore(state => state.currentBoard())
   const createTask = useStore(state => state.createTask)
   const editTaskHandler = useStore(state => state.editTask)
+  const theme = useStore(state => state.theme())
 
   const [taskInfo, dispatchTaskInfo] = useReducer(modifyTaskReducer, {
     title: editTask ? modalType.modalInfo!.name : '',
@@ -115,7 +116,7 @@ const ModifyTask: React.FC<{
   }
 
   return (
-    <div className="add-task">
+    <div className="add-task" data-theme={theme}>
       <p className="add-task__header">{title}</p>
       <label htmlFor="task-title">
         Title
@@ -140,7 +141,7 @@ const ModifyTask: React.FC<{
           }
         />
       </label>
-      <div className="subtasks">
+      <div className="subtasks" data-theme={theme}>
         <p className="subtasks__header">Subtasks</p>
         <AnimatePresence>
           {taskInfo.subtasks.map((el, idx) => (

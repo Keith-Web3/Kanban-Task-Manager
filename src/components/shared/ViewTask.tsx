@@ -13,6 +13,7 @@ const SubTask: React.FC<{ task: string; completed: boolean }> = function ({
 }) {
   const id = useId()
   const [isChecked, setIsChecked] = useState(completed)
+  const theme = useStore(state => state.theme())
   const tickVariants = {
     // pressed: (isChecked: boolean) => ({ pathLength: isChecked ? 0.85 : 0.2 }),
     checked: { pathLength: 1 },
@@ -20,7 +21,7 @@ const SubTask: React.FC<{ task: string; completed: boolean }> = function ({
   }
   const boxVariants = {
     checked: { backgroundColor: '#635fc7' },
-    unchecked: { backgroundColor: '#ffffff' },
+    unchecked: { backgroundColor: theme === 'light' ? '#ffffff' : '#2b2c37' },
   }
   return (
     <label className="subtask" htmlFor={id}>
@@ -38,20 +39,22 @@ const SubTask: React.FC<{ task: string; completed: boolean }> = function ({
         animate={isChecked ? 'checked' : 'unchecked'}
         className="custom-checkbox"
       >
-        <motion.svg
-          transition={{ when: 'beforeChildren' }}
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 448 512"
-        >
-          <motion.path
-            variants={tickVariants}
-            initial={'unchecked'}
-            animate={'checked'}
-            d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
-            pathLength="100"
-            fill="#ffffff"
-          />
-        </motion.svg>
+        {isChecked && (
+          <motion.svg
+            transition={{ when: 'beforeChildren' }}
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+          >
+            <motion.path
+              variants={tickVariants}
+              initial={'unchecked'}
+              animate={'checked'}
+              d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+              pathLength="100"
+              fill="#ffffff"
+            />
+          </motion.svg>
+        )}
       </motion.div>
       {task}
     </label>
@@ -67,6 +70,7 @@ const ViewTask: React.FC<{
   const currentBoard = useStore(state => state.currentBoard())
   const setModalType = useStore(state => state.setModalType)
   const modalType = useStore(state => state.modalType)
+  const theme = useStore(state => state.theme())
 
   const [isStatusOpen, setIsStatusOpen] = useState(false)
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
@@ -95,6 +99,7 @@ const ViewTask: React.FC<{
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
+        data-theme={theme}
         layout
         className="view-task"
       >
@@ -168,6 +173,7 @@ const ViewTask: React.FC<{
             animate="animate"
             exit="exit"
             className="status-menu"
+            data-theme={theme}
           >
             {currentBoard.status.map(el => (
               <motion.p key={nanoid()} variants={itemVariants}>

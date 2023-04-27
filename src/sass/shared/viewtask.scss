@@ -117,6 +117,46 @@
       color: $red-200;
     }
   }
+
+  &[data-theme='dark'] {
+    background-color: $dark-200;
+
+    .view-task__header,
+    .view-task__current,
+    .view-task__status p {
+      color: $white;
+    }
+    .subtask {
+      background-color: $dark-300;
+      color: $white;
+
+      .custom-checkbox {
+        border: 1px solid rgba(130, 143, 163, 0.248914);
+      }
+      &:has(input:checked) {
+        color: rgba($white, 0.5);
+      }
+    }
+    // .status__header,
+    // .status-dropdown p {
+    //   color: $white;
+    // }
+    // .status-menu {
+    //   background-color: $dark-300;
+    // }
+    // label {
+    //   color: $white;
+
+    //   input,
+    //   textarea {
+    //     background-color: $dark-200;
+    //     color: $white;
+    //     &::placeholder {
+    //       color: rgba($white, 0.25);
+    //     }
+    //   }
+    // }
+  }
 }
 .status-menu {
   color: $gray-200;
@@ -134,5 +174,12 @@
     padding-inline: $spacer;
     margin-bottom: $spacer;
     cursor: pointer;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &[data-theme='dark'] {
+    background-color: $dark-300;
   }
 }

@@ -12,8 +12,11 @@ const ModifyBoards: React.FC<{
   editBoard?: boolean
 }> = function ({ title, button, editBoard = false }) {
   const id = useId()
+
   const modalType = useStore(state => state.modalType)
   const currentBoard = useStore(state => state.currentBoard)
+  const theme = useStore(state => state.theme())
+
   const [boardName, setBoardName] = useState(
     editBoard ? currentBoard().name : ''
   )
@@ -30,7 +33,7 @@ const ModifyBoards: React.FC<{
     state.editBoard,
   ])
   return (
-    <div className="modify-boards">
+    <div className="modify-boards" data-theme={theme}>
       <p className="modify-boards__title">{title}</p>
       <label htmlFor={`${id}1`} className="subtask__input">
         board name

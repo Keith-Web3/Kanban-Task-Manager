@@ -34,6 +34,9 @@
         color: #000112;
         opacity: 0.25;
       }
+      &:focus {
+        border-color: $purple-main;
+      }
     }
     textarea {
       resize: none;
@@ -102,6 +105,32 @@
     width: 100%;
     margin-top: unset;
   }
+  &[data-theme='dark'] {
+    background-color: $dark-200;
+
+    .add-task__header {
+      color: $white;
+    }
+    .status__header,
+    .status-dropdown p {
+      color: $white;
+    }
+    .status-menu {
+      background-color: $dark-300;
+    }
+    label {
+      color: $white;
+
+      input,
+      textarea {
+        background-color: $dark-200;
+        color: $white;
+        &::placeholder {
+          color: rgba($white, 0.25);
+        }
+      }
+    }
+  }
 }
 .subtasks {
   margin-top: $spacer * 1.5;
@@ -130,6 +159,9 @@
         opacity: 0.25;
         font-weight: 700;
       }
+      &:focus {
+        border-color: $purple-main;
+      }
     }
     img {
       object-fit: contain;
@@ -147,5 +179,28 @@
     text-transform: capitalize;
     font-weight: 700;
     cursor: pointer;
+  }
+  &[data-theme='dark'] {
+    background-color: $dark-200;
+
+    .subtasks__header {
+      color: $white;
+    }
+    label {
+      color: $white;
+
+      input,
+      textarea {
+        background-color: $dark-200;
+        color: $white;
+        &::placeholder {
+          color: rgba($white, 0.25);
+        }
+      }
+    }
+    .add__subtask {
+      background-color: $white;
+      color: $purple-main;
+    }
   }
 }
