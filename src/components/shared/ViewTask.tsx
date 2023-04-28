@@ -1,4 +1,4 @@
-import React, { useId, useState } from 'react'
+import React, { useEffect, useId, useState } from 'react'
 import { nanoid } from 'nanoid'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -7,12 +7,19 @@ import '../../sass/shared/viewtask.scss'
 import chevron from '../../assets/icon-chevron-down.svg'
 import useStore from '../store/store'
 
-const SubTask: React.FC<{ task: string; completed: boolean }> = function ({
-  task,
-  completed,
-}) {
+const SubTask: React.FC<{
+  idx: number
+  subtasks: { task: string; completed: boolean }[]
+  setSubtaskM: React.Dispatch<
+    React.SetStateAction<
+      {
+        task: string
+        completed: boolean
+      }[]
+    >
+  >
+}> = function ({ idx, subtasks, setSubtaskM }) {
   const id = useId()
-  const [isChecked, setIsChecked] = useState(completed)
   const theme = useStore(state => state.theme())
   const tickVariants = {
     // pressed: (isChecked: boolean) => ({ pathLength: isChecked ? 0.85 : 0.2 }),
@@ -26,9 +33,12 @@ const SubTask: React.FC<{ task: string; completed: boolean }> = function ({
   return (
     <label className="subtask" htmlFor={id}>
       <input
-        checked={isChecked}
+        checked={subtasks[idx].completed}
         onChange={e => {
-          setIsChecked(e.target.checked)
+          const newCompleted = subtasks.map((el, i) =>
+            i === idx ? { task: el.task, completed: e.target.checked } : el
+          )
+          setSubtaskM(newCompleted)
         }}
         type="checkbox"
         id={id}
@@ -36,10 +46,10 @@ const SubTask: React.FC<{ task: string; completed: boolean }> = function ({
       <motion.div
         variants={boxVariants}
         initial={false}
-        animate={isChecked ? 'checked' : 'unchecked'}
+        animate={subtasks[idx].completed ? 'checked' : 'unchecked'}
         className="custom-checkbox"
       >
-        {isChecked && (
+        {subtasks[idx].completed && (
           <motion.svg
             transition={{ when: 'beforeChildren' }}
             xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +66,7 @@ const SubTask: React.FC<{ task: string; completed: boolean }> = function ({
           </motion.svg>
         )}
       </motion.div>
-      {task}
+      {subtasks[idx].task}
     </label>
   )
 }
@@ -65,15 +75,17 @@ const ViewTask: React.FC<{
   description?: string
   subtasks: { task: string; completed: boolean }[]
 }> = function ({ name, description, subtasks }) {
-  const completed = subtasks.filter(el => el.completed).length
-
   const currentBoard = useStore(state => state.currentBoard())
   const setModalType = useStore(state => state.setModalType)
   const modalType = useStore(state => state.modalType)
+  const toggleTaskCompleted = useStore(state => state.toggleTaskCompleted)
   const theme = useStore(state => state.theme())
 
+  const [subtasksM, setSubtaskM] = useState(subtasks)
   const [isStatusOpen, setIsStatusOpen] = useState(false)
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
+
+  const completed = subtasksM.filter(el => el.completed).length
 
   const statusVariants = {
     initial: { scale: 0 },
@@ -92,6 +104,18 @@ const ViewTask: React.FC<{
     animate: { y: '0px', opacity: 1 },
     exit: { y: '-20px', opacity: 0 },
   }
+
+  useEffect(
+    () => {
+      toggleTaskCompleted(
+        currentBoard.id,
+        modalType.modalInfo!.statusId!,
+        modalType.modalInfo!.id,
+        subtasksM
+      )
+    },
+    subtasksM.map(el => el.completed)
+  )
 
   return (
     <>
@@ -143,10 +167,16 @@ const ViewTask: React.FC<{
         </div>
         <p className="view-task__description">{description}</p>
         <p className="view-task__subtasks">
-          Subtasks ({completed} of {subtasks.length})
+          Subtasks ({completed} of {subtasksM.length})
         </p>
-        {subtasks.map(el => (
-          <SubTask key={nanoid()} {...el} />
+        {subtasks.map((el, idx) => (
+          <SubTask
+            idx={idx}
+            subtasks={subtasksM}
+            setSubtaskM={setSubtaskM}
+            key={nanoid()}
+            {...el}
+          />
         ))}
         <p className="view-task__current">current status</p>
         <div className="view-task__status">

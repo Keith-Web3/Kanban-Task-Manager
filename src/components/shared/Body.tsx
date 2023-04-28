@@ -18,8 +18,6 @@ const Body: React.FC<{
   const modalType = useStore(state => state.modalType)
   const colorTheme = useStore(state => state.theme())
 
-  console.log(colorTheme)
-
   return (
     <motion.main layout className="body">
       {!currentBoard.status.every(el => !el.tasks.length) && (

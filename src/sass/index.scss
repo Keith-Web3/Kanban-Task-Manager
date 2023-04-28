@@ -10,9 +10,11 @@ body {
 
   @media (prefers-color-scheme: light) {
     content: 'light';
+    background-color: $gray-100;
   }
   @media (prefers-color-scheme: dark) {
     content: 'dark';
+    background-color: $dark-300;
   }
   @media (max-width: 700px) {
     display: block;

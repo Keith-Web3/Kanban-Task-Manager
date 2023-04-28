@@ -57,6 +57,12 @@ type State = {
     columns: { columnName: string; columnId: number }[]
   ) => void
   toggleTheme: () => void
+  toggleTaskCompleted: (
+    boardId: number,
+    statusId: number,
+    taskId: number,
+    subtasks: { task: string; completed: boolean }[]
+  ) => void
   setCurrentBoard: (id: number) => void
   setModalType: (newType: Modal) => void
 }
@@ -412,9 +418,26 @@ const useStore = create<State & Action>((set, get) => ({
   currentBoard: () => get().boards[0],
   toggleTheme: function () {
     set(() => {
-      if (get().theme() === 'light') return { theme: () => 'dark' }
+      if (get().theme() === 'light') {
+        document.body.style.backgroundColor = '#20212c'
+        return { theme: () => 'dark' }
+      }
+      document.body.style.backgroundColor = '#f4f7fd'
       return { theme: () => 'light' }
     })
+  },
+  toggleTaskCompleted: function (boardId, statusId, taskId, subtasks) {
+    const otherBoards = get().boards.filter(board => board.id !== boardId)!
+    const currentBoard = {
+      ...get().boards.find(board => board.id === boardId)!,
+    }
+
+    const task = currentBoard!
+      .status!.find(stat => stat.id === statusId)!
+      .tasks.find(task => task.id === taskId)!
+    task!.subtasks = subtasks
+
+    set(() => ({ boards: [...otherBoards, currentBoard] }))
   },
   setCurrentBoard: function (id) {
     const setter = () => {

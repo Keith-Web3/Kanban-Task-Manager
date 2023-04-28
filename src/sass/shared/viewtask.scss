@@ -136,26 +136,10 @@
       &:has(input:checked) {
         color: rgba($white, 0.5);
       }
+      &:hover {
+        background-color: $dark-400;
+      }
     }
-    // .status__header,
-    // .status-dropdown p {
-    //   color: $white;
-    // }
-    // .status-menu {
-    //   background-color: $dark-300;
-    // }
-    // label {
-    //   color: $white;
-
-    //   input,
-    //   textarea {
-    //     background-color: $dark-200;
-    //     color: $white;
-    //     &::placeholder {
-    //       color: rgba($white, 0.25);
-    //     }
-    //   }
-    // }
   }
 }
 .status-menu {
