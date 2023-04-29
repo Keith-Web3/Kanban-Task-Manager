@@ -82,21 +82,27 @@
   }
   &__dropdown {
     position: absolute;
-    padding: $spacer;
+    padding: $spacer * 0.5;
     box-shadow: 0px 10px 20px rgba(54, 78, 126, 0.25);
     border-radius: 8px;
     text-transform: capitalize;
-    inset: auto $spacer -100% auto;
+    inset: auto $spacer * 2 -100% auto;
     background-color: $white;
     font-weight: 500;
+    z-index: 2;
 
     p {
       cursor: pointer;
-      padding-right: $spacer * 4;
+      padding: $spacer * 0.5;
+      padding-right: $spacer * 3;
+      border-radius: 3px;
+
+      &:hover {
+        background-color: $gray-100;
+      }
     }
     p:first-child {
       color: $gray-200;
-      margin-bottom: $spacer;
     }
     p:last-child {
       color: $red-200;

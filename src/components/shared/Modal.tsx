@@ -29,6 +29,14 @@ const Modal: React.FC = function () {
       {modalType.modalType === 'edit-board' && (
         <ModifyBoards editBoard title="edit board" button="save changes" />
       )}
+      {modalType.modalType === 'new-column' && (
+        <ModifyBoards
+          editBoard
+          newColumn
+          title="edit board"
+          button="save changes"
+        />
+      )}
       <motion.div
         key={nanoid()}
         className="backdrop"

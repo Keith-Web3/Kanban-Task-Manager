@@ -15,7 +15,10 @@ const Body: React.FC<{
   setIsSideBarHidden: React.Dispatch<React.SetStateAction<boolean>>
 }> = function ({ setIsSideBarHidden }) {
   const currentBoard = useStore(state => state.currentBoard())
-  const modalType = useStore(state => state.modalType)
+  const [modalType, setModalType] = useStore(state => [
+    state.modalType,
+    state.setModalType,
+  ])
   const colorTheme = useStore(state => state.theme())
 
   return (
@@ -27,7 +30,13 @@ const Body: React.FC<{
             .map(el => (
               <Board key={nanoid()} {...el} />
             ))}
-          <motion.div layout className="body__add-board">
+          <motion.div
+            layout
+            onClick={() =>
+              setModalType({ modalType: 'new-column', showModal: true })
+            }
+            className="body__add-board"
+          >
             <motion.p layout>+ new column</motion.p>
           </motion.div>
         </motion.div>
@@ -36,7 +45,12 @@ const Body: React.FC<{
         <p className="empty__message">
           This board is empty. Create a new column to get started.
         </p>
-        <Button className="btn--one">
+        <Button
+          className="btn--one"
+          onClick={() =>
+            setModalType({ modalType: 'new-column', showModal: true })
+          }
+        >
           <img src={plus} alt="add" />
           Add New Column
         </Button>

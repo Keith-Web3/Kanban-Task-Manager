@@ -437,7 +437,9 @@ const useStore = create<State & Action>((set, get) => ({
       .tasks.find(task => task.id === taskId)!
     task!.subtasks = subtasks
 
-    set(() => ({ boards: [...otherBoards, currentBoard] }))
+    set(() => ({
+      boards: [...otherBoards, currentBoard].sort((a, b) => a.id - b.id),
+    }))
   },
   setCurrentBoard: function (id) {
     const setter = () => {

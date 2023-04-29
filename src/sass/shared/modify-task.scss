@@ -109,24 +109,24 @@
     background-color: $dark-200;
 
     .add-task__header {
-      color: $white;
+      color: rgba($white, 0.85);
     }
     .status__header,
     .status-dropdown p {
-      color: $white;
+      color: rgba($white, 0.85);
     }
     .status-menu {
       background-color: $dark-300;
     }
     label {
-      color: $white;
+      color: rgba($white, 0.85);
 
       input,
       textarea {
         background-color: $dark-200;
-        color: $white;
+        color: rgba($white, 0.85);
         &::placeholder {
-          color: rgba($white, 0.25);
+          color: rgba($white, 0.75);
         }
       }
     }
@@ -184,17 +184,17 @@
     background-color: $dark-200;
 
     .subtasks__header {
-      color: $white;
+      color: rgba($white, 0.85);
     }
     label {
-      color: $white;
+      color: rgba($white, 0.85);
 
       input,
       textarea {
         background-color: $dark-200;
-        color: $white;
+        color: rgba($white, 0.85);
         &::placeholder {
-          color: rgba($white, 0.25);
+          color: rgba($white, 0.75);
         }
       }
     }

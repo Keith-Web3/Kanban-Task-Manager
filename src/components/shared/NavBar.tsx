@@ -52,14 +52,13 @@ const NavBar: React.FC<{
       variants={navVariant}
       initial="initial"
       animate="animate"
-      // transition={{ type: 'spring', stiffness: 900, damping: 30 }}
       className={`navbar ${isNavOpened ? 'active' : ''}`}
     >
       <div className="navbar__container">
-        <div className="navbar__header">
+        <motion.div layout className="navbar__header">
           <img src={logo} alt="logo" />
           <p>kanban</p>
-        </div>
+        </motion.div>
         <p className="navbar__title">All boards({boards.length})</p>
         <div className="navbar__boards">
           {boards.map((board, idx) => (

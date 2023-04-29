@@ -94,6 +94,7 @@ const ViewTask: React.FC<{
       transition: {
         when: 'beforeChildren',
         staggerChildren: 0.05,
+        delayChildren: 0.1,
         duration: 0.3,
       },
     },
@@ -140,6 +141,7 @@ const ViewTask: React.FC<{
                 initial={{ y: '-10px', opacity: 0 }}
                 animate={{ y: '0px', opacity: 1 }}
                 exit={{ y: '-10px', opacity: 0 }}
+                transition={{ duration: 0.25 }}
                 className="view-task__dropdown"
               >
                 <p

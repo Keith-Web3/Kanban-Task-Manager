@@ -106,19 +106,19 @@
     background-color: $dark-200;
 
     .modify-boards__title {
-      color: $white;
+      color: rgba($white, 0.85);
     }
     .columns__header {
-      color: $white;
+      color: rgba($white, 0.85);
     }
     label {
-      color: $white;
+      color: rgba($white, 0.85);
 
       input {
         background-color: $dark-200;
-        color: $white;
+        color: rgba($white, 0.85);
         &::placeholder {
-          color: rgba($white, 0.25);
+          color: rgba($white, 0.75);
         }
       }
     }

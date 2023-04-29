@@ -51,7 +51,7 @@ const Header: React.FC<{
       className="header"
     >
       <motion.div
-        layout
+        // layout
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="header__sidebar-hidden"

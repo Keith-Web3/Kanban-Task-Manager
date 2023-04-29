@@ -1,4 +1,4 @@
-import React, { useId, useState } from 'react'
+import React, { useEffect, useId, useRef, useState } from 'react'
 import { nanoid } from 'nanoid'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -10,28 +10,44 @@ const ModifyBoards: React.FC<{
   title: string
   button: string
   editBoard?: boolean
-}> = function ({ title, button, editBoard = false }) {
+  newColumn?: boolean
+}> = function ({ title, button, editBoard = false, newColumn = false }) {
   const id = useId()
 
   const modalType = useStore(state => state.modalType)
   const currentBoard = useStore(state => state.currentBoard)
   const theme = useStore(state => state.theme())
+  const [createBoard, editBoardHandler] = useStore(state => [
+    state.createBoard,
+    state.editBoard,
+  ])
 
   const [boardName, setBoardName] = useState(
     editBoard ? currentBoard().name : ''
   )
   const [boardColumns, setBoardColumns] = useState<[string, number][]>(
     editBoard
-      ? currentBoard().status.map(el => [el.name, el.id])
+      ? newColumn
+        ? [
+            ...(currentBoard().status.map(el => [el.name, el.id]) as [
+              string,
+              number
+            ][]),
+            ['', Date.now()],
+          ]
+        : currentBoard().status.map(el => [el.name, el.id])
       : [
           ['', Date.now() + 1],
           ['', Date.now() + 1],
         ]
   )
-  const [createBoard, editBoardHandler] = useStore(state => [
-    state.createBoard,
-    state.editBoard,
-  ])
+
+  const addColumnRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (newColumn) addColumnRef.current!.focus()
+  }, [])
+
   return (
     <div className="modify-boards" data-theme={theme}>
       <p className="modify-boards__title">{title}</p>
@@ -70,6 +86,7 @@ const ModifyBoards: React.FC<{
                     return newBoards
                   })
                 }}
+                ref={idx === boardColumns.length - 1 ? addColumnRef : null}
               />
               <img
                 onClick={() =>
