@@ -64,6 +64,13 @@
     margin-right: $spacer * 1.5;
     border-radius: 0px 100px 100px 0px;
     cursor: pointer;
+
+    p {
+      max-width: 200px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     &.navbar__add-board {
       color: $purple-main;
       img:nth-child(2) {

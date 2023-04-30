@@ -61,19 +61,21 @@ const NavBar: React.FC<{
         </motion.div>
         <p className="navbar__title">All boards({boards.length})</p>
         <div className="navbar__boards">
-          {boards.map((board, idx) => (
-            <motion.div
-              variants={boardVariants}
-              key={idx}
-              className={`navbar__board ${
-                board.id === currentBoard.id ? 'active' : ''
-              }`}
-              onClick={() => setCurrentBoard(board.id)}
-            >
-              <img src={boardIcon} alt="board" />
-              <p>{board.name}</p>
-            </motion.div>
-          ))}
+          {boards.length
+            ? boards.map((board, idx) => (
+                <motion.div
+                  variants={boardVariants}
+                  key={idx}
+                  className={`navbar__board ${
+                    board.id === currentBoard.id ? 'active' : ''
+                  }`}
+                  onClick={() => setCurrentBoard(board.id)}
+                >
+                  <img src={boardIcon} alt="board" />
+                  <p title={board.name}>{board.name}</p>
+                </motion.div>
+              ))
+            : []}
           <div className="navbar__add-board navbar__board">
             <img src={boardIconP} alt="board" />
             <img src={plusP} alt="add board" />

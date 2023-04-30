@@ -23,24 +23,25 @@ const Body: React.FC<{
 
   return (
     <motion.main layout className="body">
-      {!currentBoard.status.every(el => !el.tasks.length) && (
-        <motion.div layout className="body__boards">
-          {currentBoard.status
-            .filter(el => el.tasks.length)
-            .map(el => (
-              <Board key={nanoid()} {...el} />
-            ))}
-          <motion.div
-            layout
-            onClick={() =>
-              setModalType({ modalType: 'new-column', showModal: true })
-            }
-            className="body__add-board"
-          >
-            <motion.p layout>+ new column</motion.p>
+      {currentBoard?.status &&
+        !currentBoard.status.every(el => el.tasks.length === 0) && (
+          <motion.div layout className="body__boards">
+            {currentBoard.status
+              .filter(el => el.tasks.length)
+              .map(el => (
+                <Board key={nanoid()} {...el} />
+              ))}
+            <motion.div
+              layout
+              onClick={() =>
+                setModalType({ modalType: 'new-column', showModal: true })
+              }
+              className="body__add-board"
+            >
+              <motion.p layout>+ new column</motion.p>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
+        )}
       <div className="empty">
         <p className="empty__message">
           This board is empty. Create a new column to get started.
@@ -50,6 +51,7 @@ const Body: React.FC<{
           onClick={() =>
             setModalType({ modalType: 'new-column', showModal: true })
           }
+          disabled={!currentBoard}
         >
           <img src={plus} alt="add" />
           Add New Column

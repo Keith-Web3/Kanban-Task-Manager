@@ -51,7 +51,6 @@ const Header: React.FC<{
       className="header"
     >
       <motion.div
-        // layout
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="header__sidebar-hidden"
@@ -60,7 +59,7 @@ const Header: React.FC<{
         <p>kanban</p>
       </motion.div>
       <img className="header__logo" src={logo} alt="logo" />
-      <p className="header__title">{currentBoard.name}</p>
+      <p className="header__title">{currentBoard?.name}</p>
       <motion.img
         onClick={() => setIsNavOpened(prev => !prev)}
         variants={variants}
@@ -73,7 +72,7 @@ const Header: React.FC<{
       <Button
         onClick={() => setModalType({ modalType: 'add-task', showModal: true })}
         className="header__add-task btn--on"
-        disabled={currentBoard.status.length === 0}
+        disabled={!Boolean(currentBoard?.status.length)}
       >
         <img src={add} alt="add board" />
         <p>add new task</p>

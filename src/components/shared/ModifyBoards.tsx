@@ -14,7 +14,6 @@ const ModifyBoards: React.FC<{
 }> = function ({ title, button, editBoard = false, newColumn = false }) {
   const id = useId()
 
-  const modalType = useStore(state => state.modalType)
   const currentBoard = useStore(state => state.currentBoard)
   const theme = useStore(state => state.theme())
   const [createBoard, editBoardHandler] = useStore(state => [
@@ -70,7 +69,7 @@ const ModifyBoards: React.FC<{
               animate={{ scaleY: 1, opacity: 1 }}
               exit={{ x: '-100%', opacity: 0 }}
               layout
-              key={el[1]}
+              key={idx}
               htmlFor={`subtask${id}${idx}`}
               className="columns__input"
             >
