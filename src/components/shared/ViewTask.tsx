@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useState } from 'react'
+import React, { useEffect, useId, useRef, useState } from 'react'
 import { nanoid } from 'nanoid'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -79,6 +79,7 @@ const ViewTask: React.FC<{
   const setModalType = useStore(state => state.setModalType)
   const modalType = useStore(state => state.modalType)
   const toggleTaskCompleted = useStore(state => state.toggleTaskCompleted)
+  const isMounted = useRef(false)
   const theme = useStore(state => state.theme())
 
   const [subtasksM, setSubtaskM] = useState(subtasks)
@@ -108,12 +109,14 @@ const ViewTask: React.FC<{
 
   useEffect(
     () => {
-      toggleTaskCompleted(
-        currentBoard.id,
-        modalType.modalInfo!.statusId!,
-        modalType.modalInfo!.id,
-        subtasksM
-      )
+      if (isMounted.current)
+        toggleTaskCompleted(
+          currentBoard.id,
+          modalType.modalInfo!.statusId!,
+          modalType.modalInfo!.id,
+          subtasksM
+        )
+      isMounted.current = true
     },
     subtasksM.map(el => el.completed)
   )
