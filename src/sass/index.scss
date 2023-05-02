@@ -27,9 +27,10 @@ body {
   align-content: center;
   z-index: 2;
   padding: $spacer;
-  height: 100%;
   min-height: 100vh;
-  position: relative;
+  height: max-content;
+  position: sticky;
+  top: 0;
 
   &:empty {
     pointer-events: none;
@@ -41,7 +42,7 @@ body {
     z-index: -1;
   }
   @media (max-width: 700px) {
-    position: absolute;
+    position: sticky;
     inset: 0 0 auto 0;
     height: max-content;
   }
