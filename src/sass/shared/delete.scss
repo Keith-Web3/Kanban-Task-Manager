@@ -1,0 +1,46 @@
+@use '../variables' as *;
+
+.delete {
+  width: min(95%, 480px);
+  background-color: $white;
+  border-radius: 6px;
+  padding: $spacer * 1.5;
+  margin-inline: auto;
+
+  &__header {
+    color: $red-200;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  &__message {
+    margin-block: $spacer $spacer * 1.5;
+    color: $gray-200;
+    line-height: 25px;
+    font-weight: 500;
+  }
+
+  &__btn-container {
+    display: flex;
+    gap: $spacer;
+
+    .del {
+      flex: 1;
+      display: block;
+      text-align: center;
+      background-color: $red-200;
+
+      &--cancel {
+        background-color: rgba(99, 95, 199, 0.1);
+        color: $purple-main;
+      }
+    }
+  }
+
+  &[data-theme='dark'] {
+    background-color: $dark-200;
+
+    .del--cancel {
+      background-color: $white;
+    }
+  }
+}

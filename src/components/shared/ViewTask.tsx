@@ -165,7 +165,13 @@ const ViewTask: React.FC<{
                 >
                   edit task
                 </p>
-                <p>delete task</p>
+                <p
+                  onClick={() =>
+                    setModalType({ ...modalType, modalType: 'delete-task' })
+                  }
+                >
+                  delete task
+                </p>
               </motion.div>
             )}
           </AnimatePresence>

@@ -100,7 +100,14 @@ const Header: React.FC<{
             >
               edit board
             </p>
-            <p className="dropdown__option">delete board</p>
+            <p
+              className="dropdown__option"
+              onClick={() =>
+                setModalType({ modalType: 'delete-board', showModal: true })
+              }
+            >
+              delete board
+            </p>
           </motion.div>
         )}
       </AnimatePresence>

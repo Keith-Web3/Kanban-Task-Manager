@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { persist } from 'zustand/middleware'
 
 export type Modal = {
   modalType: string
@@ -36,6 +36,8 @@ type State = {
   currentBoard: () => Board
   modalType: Modal
   createBoard: (boardName: string, boardColumns: string[]) => void
+  deleteBoard: (boardId: number) => void
+  deleteTask: (boardId: number, taskId: number) => void
   createTask: (
     title: string,
     description: string,
@@ -78,6 +80,29 @@ const useStore = create<State & Action>()(
           | 'light'
           | 'dark'
           | 'normal',
+      deleteBoard: function (boardId) {
+        const newBoards = get().boards.filter(board => board.id !== boardId)
+
+        set(() => ({ boards: newBoards }))
+        get().setCurrentBoard(0)
+        get().setModalType({ modalType: '', showModal: false })
+      },
+      deleteTask: function (boardId, taskId) {
+        const currentBoard = get().currentBoard()
+        const otherBoards = get().boards.filter(board => board.id !== boardId)
+
+        currentBoard.status.forEach(stat => {
+          if (stat.tasks.some(task => task.id === taskId)) {
+            stat.tasks = stat.tasks.filter(task => task.id !== taskId)
+          }
+        })
+
+        set(() => ({
+          boards: [...otherBoards, currentBoard].sort((a, b) => a.id! - b.id!),
+        }))
+        get().setCurrentBoard(boardId)
+        get().setModalType({ modalType: '', showModal: false })
+      },
       createTask: function (title, description, subtasks, status, boardId) {
         const otherBoards = get().boards.filter(board => board.id !== boardId)
         const currentBoard = get().boards.find(board => board.id === boardId)
@@ -258,7 +283,6 @@ const useStore = create<State & Action>()(
     }),
     {
       name: 'kanban-task-manager',
-      // storage: createJSONStorage(() => sessionStorage),
     }
   )
 )

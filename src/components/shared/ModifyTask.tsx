@@ -91,7 +91,6 @@ const ModifyTask: React.FC<{
           ['', nanoid(), false],
           ['', nanoid(), false],
         ],
-    // column: editTask ? modalType.modalInfo!.status : currentBoard.status[0].name ? currentBoard.status[0].name : ''
     column: editTask
       ? modalType.modalInfo!.statusId!
       : currentBoard.status[0].id,

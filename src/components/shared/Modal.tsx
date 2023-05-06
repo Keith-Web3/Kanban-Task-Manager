@@ -6,6 +6,7 @@ import ModifyTask from './ModifyTask'
 import ViewTask from './ViewTask'
 import useStore from '../store/store'
 import ModifyBoards from './ModifyBoards'
+import Delete from './Delete'
 
 const Modal: React.FC = function () {
   const [modalType, setModalType] = useStore(state => [
@@ -29,6 +30,8 @@ const Modal: React.FC = function () {
       {modalType.modalType === 'edit-board' && (
         <ModifyBoards editBoard title="edit board" button="save changes" />
       )}
+      {modalType.modalType === 'delete-task' && <Delete isBoard={false} />}
+      {modalType.modalType === 'delete-board' && <Delete isBoard />}
       {modalType.modalType === 'new-column' && (
         <ModifyBoards
           editBoard
