@@ -50,4 +50,4 @@ npm run format
 This project is licensed under the MIT License. See the LICENSE file for more information.
 
 ## Acknowledgments
-The Kanban Task Management app was inspired by the popular Kanban methodology for project management and the need for a simple and efficient task tracking tool. Design attribution goes to the team at [frontendmentor](frontendmentor.io)
+The Kanban Task Management app was inspired by the popular Kanban methodology for project management and the need for a simple and efficient task tracking tool. Design attribution goes to the team at [frontendmentor](https://www.frontendmentor.io/)
