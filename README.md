@@ -26,7 +26,7 @@ npm install
 ### Start the development server:
 
 ```html
-npm start
+npm run dev
 ```
 This will start the app in development mode. Open[ http://localhost:3000](http://127.0.0.1:5173/) in your web browser to access the Kanban Task Management app.
 
