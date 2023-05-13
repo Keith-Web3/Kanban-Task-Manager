@@ -82,9 +82,13 @@ const useStore = create<State & Action>()(
           | 'normal',
       deleteBoard: function (boardId) {
         const newBoards = get().boards.filter(board => board.id !== boardId)
+        let adjacentBoardIdx = get().boards.findIndex(
+          board => board.id === boardId
+        )
+        adjacentBoardIdx = adjacentBoardIdx > 0 ? adjacentBoardIdx - 1 : 0
 
         set(() => ({ boards: newBoards }))
-        get().setCurrentBoard(0)
+        get().setCurrentBoard(get().boards[adjacentBoardIdx]?.id || 0)
         get().setModalType({ modalType: '', showModal: false })
       },
       deleteTask: function (boardId, taskId) {

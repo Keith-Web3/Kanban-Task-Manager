@@ -67,7 +67,7 @@ const NavBar: React.FC<{
                   variants={boardVariants}
                   key={idx}
                   className={`navbar__board ${
-                    board.id === currentBoard.id ? 'active' : ''
+                    board.id === currentBoard?.id ? 'active' : ''
                   }`}
                   onClick={() => setCurrentBoard(board.id)}
                 >
