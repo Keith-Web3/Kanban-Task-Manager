@@ -42,7 +42,7 @@ body {
     z-index: -1;
   }
   @media (max-width: 700px) {
-    position: sticky;
+    position: absolute;
     inset: 0 0 auto 0;
     height: max-content;
   }

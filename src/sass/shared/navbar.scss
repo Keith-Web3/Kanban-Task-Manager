@@ -28,6 +28,9 @@
     border-radius: 8px;
     margin: $spacer auto 0;
 
+    @include screen(700, 'max') {
+      box-shadow: 0 0 3px rgba($dark-400, 0.35);
+    }
     @include screen(700) {
       margin: 0;
       display: flex;

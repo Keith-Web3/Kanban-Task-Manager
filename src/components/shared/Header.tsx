@@ -31,10 +31,12 @@ const Header: React.FC<{
       'header__dropdown',
       'header__ellipsis',
       'dropdown__option',
+      'header__chevron',
     ]
     const listener = function (e: MouseEvent) {
       if (!classNames.includes((e.target as HTMLElement).className)) {
         setIsDropDownOpen(false)
+        setIsNavOpened(false)
       }
     }
     document.body.addEventListener('click', listener)
@@ -45,11 +47,7 @@ const Header: React.FC<{
   }, [])
 
   return (
-    <motion.header
-      layout
-      // transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-      className="header"
-    >
+    <motion.header layout className="header">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
