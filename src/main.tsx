@@ -5,7 +5,7 @@ import App from './App'
 import './sass/index.scss'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <App />
-  // <React.StrictMode>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 )
