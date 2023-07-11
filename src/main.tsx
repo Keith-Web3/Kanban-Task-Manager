@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 
-import App from './App'
 import './sass/index.scss'
+import Homepage from './components/pages/Homepage'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <Homepage />
   </React.StrictMode>
 )
