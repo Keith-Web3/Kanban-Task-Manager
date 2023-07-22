@@ -97,6 +97,9 @@
       padding-right: $spacer * 3;
       border-radius: 3px;
 
+      &.disabled {
+        cursor: not-allowed;
+      }
       &:hover {
         background-color: $gray-100;
       }

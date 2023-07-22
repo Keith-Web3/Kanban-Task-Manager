@@ -90,17 +90,22 @@ const Header: React.FC<{
             transition={{ duration: 0.25 }}
             className="header__dropdown"
           >
+            {
+              //NOTE p tag, disabled class used due to defect in button element styling
+            }
             <p
               onClick={() =>
+                currentBoard &&
                 setModalType({ modalType: 'edit-board', showModal: true })
               }
-              className="dropdown__option"
+              className={`dropdown__option ${!currentBoard && 'disabled'}`}
             >
               edit board
             </p>
             <p
-              className="dropdown__option"
+              className={`dropdown__option ${!currentBoard && 'disabled'}`}
               onClick={() =>
+                currentBoard &&
                 setModalType({ modalType: 'delete-board', showModal: true })
               }
             >
