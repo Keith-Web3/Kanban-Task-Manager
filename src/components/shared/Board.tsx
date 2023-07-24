@@ -25,7 +25,7 @@ const Board: React.FC<{
           {...provided.droppableProps}
           ref={provided.innerRef}
         >
-          <motion.div layout className="board__header">
+          <motion.div className="board__header">
             <motion.div
               layout
               style={{
