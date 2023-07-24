@@ -32,7 +32,7 @@ const Body: React.FC<{
       {currentBoard?.status &&
         !currentBoard.status.every(el => el.tasks.length === 0) && (
           <DragDropContext onDragEnd={handleDragEnd}>
-            <motion.div layout className="body__boards">
+            <motion.div className="body__boards">
               {currentBoard.status
                 .filter(el => el.tasks.length)
                 .map(el => (
