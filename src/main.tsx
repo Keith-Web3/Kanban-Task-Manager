@@ -5,7 +5,5 @@ import './sass/index.scss'
 import Homepage from './components/pages/Homepage'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <Homepage />
-  </React.StrictMode>
+  <Homepage />
 )

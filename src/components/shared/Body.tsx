@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { nanoid } from 'nanoid'
+import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 
 import plus from '../../assets/icon-add-task-mobile.svg'
 import Button from '../ui/Button'
@@ -15,32 +16,39 @@ const Body: React.FC<{
   setIsSideBarHidden: React.Dispatch<React.SetStateAction<boolean>>
 }> = function ({ setIsSideBarHidden }) {
   const currentBoard = useStore(state => state.currentBoard())
+  const reorderBoard = useStore(state => state.reorderBoard)
   const [modalType, setModalType] = useStore(state => [
     state.modalType,
     state.setModalType,
   ])
-  const colorTheme = useStore(state => state.theme())
+
+  const handleDragEnd = function (results: DropResult) {
+    const { destination, source } = results
+    reorderBoard(destination, source)
+  }
 
   return (
     <motion.main layout className="body">
       {currentBoard?.status &&
         !currentBoard.status.every(el => el.tasks.length === 0) && (
-          <motion.div layout className="body__boards">
-            {currentBoard.status
-              .filter(el => el.tasks.length)
-              .map(el => (
-                <Board key={nanoid()} {...el} />
-              ))}
-            <motion.div
-              layout
-              onClick={() =>
-                setModalType({ modalType: 'new-column', showModal: true })
-              }
-              className="body__add-board"
-            >
-              <motion.p layout>+ new column</motion.p>
+          <DragDropContext onDragEnd={handleDragEnd}>
+            <motion.div layout className="body__boards">
+              {currentBoard.status
+                .filter(el => el.tasks.length)
+                .map(el => (
+                  <Board key={nanoid()} {...el} />
+                ))}
+              <motion.div
+                layout
+                onClick={() =>
+                  setModalType({ modalType: 'new-column', showModal: true })
+                }
+                className="body__add-board"
+              >
+                <motion.p layout>+ new column</motion.p>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </DragDropContext>
         )}
       <div className="empty">
         <p className="empty__message">

@@ -1,8 +1,9 @@
 import React from 'react'
+import { motion } from 'framer-motion'
+import { Droppable, Draggable } from 'react-beautiful-dnd'
 
 import '../../sass/shared/board.scss'
 import useStore from '../store/store'
-import { motion } from 'framer-motion'
 
 const Board: React.FC<{
   name: string
@@ -17,43 +18,61 @@ const Board: React.FC<{
 }> = function ({ name, tasks, id, colorTag }) {
   const setModalType = useStore(state => state.setModalType)
   return (
-    <div className="board">
-      <motion.div layout className="board__header">
-        <motion.div
-          layout
-          style={{
-            backgroundColor: colorTag,
-          }}
-        ></motion.div>
-        <motion.p layout>
-          {name} ({tasks.length})
-        </motion.p>
-      </motion.div>
-      {tasks && (
-        <div className="board__tasks">
-          {tasks.map(task => (
+    <Droppable droppableId={`${id}`}>
+      {provided => (
+        <div
+          className="board"
+          {...provided.droppableProps}
+          ref={provided.innerRef}
+        >
+          <motion.div layout className="board__header">
             <motion.div
               layout
-              key={task.id}
-              className="board__task"
-              onClick={() =>
-                setModalType({
-                  modalType: 'task-info',
-                  showModal: true,
-                  modalInfo: { ...task, statusId: id, status: name },
-                })
-              }
-            >
-              <p>{task.name}</p>
-              <p>
-                {task.subtasks.filter(el => el.completed).length} of{' '}
-                {task.subtasks.length} subtasks
-              </p>
-            </motion.div>
-          ))}
+              style={{
+                backgroundColor: colorTag,
+              }}
+            ></motion.div>
+            <motion.p layout>
+              {name} ({tasks.length})
+            </motion.p>
+          </motion.div>
+          {tasks && (
+            <div className="board__tasks">
+              {tasks.map((task, index) => (
+                <Draggable
+                  draggableId={`${task.id}`}
+                  key={task.id}
+                  index={index}
+                >
+                  {provided => (
+                    <div
+                      className="board__task"
+                      {...provided.dragHandleProps}
+                      {...provided.draggableProps}
+                      ref={provided.innerRef}
+                      onClick={() =>
+                        setModalType({
+                          modalType: 'task-info',
+                          showModal: true,
+                          modalInfo: { ...task, statusId: id, status: name },
+                        })
+                      }
+                    >
+                      <p>{task.name}</p>
+                      <p>
+                        {task.subtasks.filter(el => el.completed).length} of{' '}
+                        {task.subtasks.length} subtasks
+                      </p>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </Droppable>
   )
 }
 

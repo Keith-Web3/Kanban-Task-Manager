@@ -1,3 +1,4 @@
+import { DraggableLocation } from 'react-beautiful-dnd'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -57,6 +58,10 @@ type State = {
     boardName: string,
     boardId: number,
     columns: { columnName: string; columnId: number }[]
+  ) => void
+  reorderBoard: (
+    destination: DraggableLocation | null | undefined,
+    source: DraggableLocation
   ) => void
   toggleTheme: () => void
   toggleTaskCompleted: (
@@ -246,6 +251,31 @@ const useStore = create<State & Action>()(
         }))
         get().setCurrentBoard(boardId)
         get().setModalType({ modalType: '', showModal: false })
+      },
+      reorderBoard: function (destination, source) {
+        const board = get().currentBoard()
+        const otherBoards = get().boards.filter(
+          otherBoard => board.id !== otherBoard.id
+        )
+
+        if (!destination) return
+        if (
+          source.droppableId === destination.droppableId &&
+          source.index === destination.index
+        )
+          return
+
+        const [deletedTask] = board.status
+          .find(column => column.id === +source.droppableId)!
+          .tasks.splice(source.index, 1)
+
+        board.status
+          .find(column => column.id === +destination.droppableId)!
+          .tasks.splice(destination.index, 0, deletedTask)
+
+        set(() => ({
+          boards: [...otherBoards, board].sort((a, b) => a.id! - b.id!),
+        }))
       },
       currentBoard: () => get().boards[0] || null,
       toggleTheme: function () {
