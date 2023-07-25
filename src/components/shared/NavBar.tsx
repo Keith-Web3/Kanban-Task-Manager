@@ -50,7 +50,6 @@ const NavBar = function ({ isNavOpened, setIsSideBarHidden }: NavBarProps) {
   }
   return (
     <motion.nav
-      layout
       variants={navVariant}
       initial="initial"
       animate="animate"
