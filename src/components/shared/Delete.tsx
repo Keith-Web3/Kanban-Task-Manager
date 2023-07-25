@@ -1,10 +1,8 @@
-import React from 'react'
-
 import useStore from '../store/store'
 import Button from '../ui/Button'
 import '../../sass/shared/delete.scss'
 
-const Delete: React.FC<{ isBoard: boolean }> = function ({ isBoard }) {
+const Delete = function ({ isBoard }: { isBoard: boolean }) {
   const [
     modalType,
     setModalType,

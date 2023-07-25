@@ -1,5 +1,4 @@
-import React from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { nanoid } from 'nanoid'
 
 import ModifyTask from './ModifyTask'
@@ -8,11 +7,12 @@ import useStore from '../store/store'
 import ModifyBoards from './ModifyBoards'
 import Delete from './Delete'
 
-const Modal: React.FC = function () {
+const Modal = function () {
   const [modalType, setModalType] = useStore(state => [
     state.modalType,
     state.setModalType,
   ])
+
   return (
     <>
       {modalType.modalType === 'task-info' && (

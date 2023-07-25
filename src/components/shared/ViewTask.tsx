@@ -7,7 +7,7 @@ import '../../sass/shared/viewtask.scss'
 import chevron from '../../assets/icon-chevron-down.svg'
 import useStore from '../store/store'
 
-const SubTask: React.FC<{
+interface SubTaskProps {
   idx: number
   subtasks: { task: string; completed: boolean }[]
   setSubtaskM: React.Dispatch<
@@ -18,11 +18,18 @@ const SubTask: React.FC<{
       }[]
     >
   >
-}> = function ({ idx, subtasks, setSubtaskM }) {
+}
+
+interface ViewTaskProps {
+  name: string
+  description?: string
+  subtasks: { task: string; completed: boolean }[]
+}
+
+const SubTask = function ({ idx, subtasks, setSubtaskM }: SubTaskProps) {
   const id = useId()
   const theme = useStore(state => state.theme())
   const tickVariants = {
-    // pressed: (isChecked: boolean) => ({ pathLength: isChecked ? 0.85 : 0.2 }),
     checked: { pathLength: 1 },
     unchecked: { pathLength: 0 },
   }
@@ -70,11 +77,7 @@ const SubTask: React.FC<{
     </label>
   )
 }
-const ViewTask: React.FC<{
-  name: string
-  description?: string
-  subtasks: { task: string; completed: boolean }[]
-}> = function ({ name, description, subtasks }) {
+const ViewTask = function ({ name, description, subtasks }: ViewTaskProps) {
   const currentBoard = useStore(state => state.currentBoard())
   const setModalType = useStore(state => state.setModalType)
   const modalType = useStore(state => state.modalType)

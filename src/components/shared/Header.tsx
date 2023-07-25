@@ -9,10 +9,12 @@ import '../../sass/shared/header.scss'
 import Button from '../ui/Button'
 import useStore from '../store/store'
 
-const Header: React.FC<{
+interface HeaderProps {
   isNavOpened: boolean
   setIsNavOpened: React.Dispatch<React.SetStateAction<boolean>>
-}> = function ({ isNavOpened, setIsNavOpened }) {
+}
+
+const Header = function ({ isNavOpened, setIsNavOpened }: HeaderProps) {
   const variants = {
     initial: {
       rotate: 0,

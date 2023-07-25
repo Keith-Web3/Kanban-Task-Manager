@@ -13,6 +13,13 @@ type Task = {
   subtasks: [string, string, boolean][]
   column: number
 }
+
+interface ModifyTaskProps {
+  title: string
+  button: string
+  editTask?: boolean
+}
+
 const modifyTaskReducer: (
   state: Task,
   action:
@@ -66,11 +73,11 @@ const modifyTaskReducer: (
     }
   }
 }
-const ModifyTask: React.FC<{
-  title: string
-  button: string
-  editTask?: boolean
-}> = function ({ title, button, editTask = false }) {
+const ModifyTask = function ({
+  title,
+  button,
+  editTask = false,
+}: ModifyTaskProps) {
   const id = useId()
   const [isStatusOpen, setIsStatusOpen] = useState(false)
 

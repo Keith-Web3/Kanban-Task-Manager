@@ -22,7 +22,6 @@ const Homepage: React.FC = function () {
       <NavBar
         isNavOpened={isNavOpened}
         setIsSideBarHidden={setIsSideBarHidden}
-        key={nanoid()}
       />
       <Body setIsSideBarHidden={setIsSideBarHidden} />
     </div>

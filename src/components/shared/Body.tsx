@@ -12,9 +12,11 @@ import eye from '../../assets/icon-show-sidebar.svg'
 import Board from './Board'
 import Modal from './Modal'
 
-const Body: React.FC<{
+const Body = function ({
+  setIsSideBarHidden,
+}: {
   setIsSideBarHidden: React.Dispatch<React.SetStateAction<boolean>>
-}> = function ({ setIsSideBarHidden }) {
+}) {
   const currentBoard = useStore(state => state.currentBoard())
   const reorderBoard = useStore(state => state.reorderBoard)
   const [modalType, setModalType] = useStore(state => [

@@ -11,10 +11,12 @@ import lightTheme from '../../assets/icon-light-theme.svg'
 import eye from '../../assets/icon-hide-sidebar.svg'
 import '../../sass/shared/navbar.scss'
 
-const NavBar: React.FC<{
+interface NavBarProps {
   isNavOpened: boolean
   setIsSideBarHidden: React.Dispatch<React.SetStateAction<boolean>>
-}> = function ({ isNavOpened, setIsSideBarHidden }) {
+}
+
+const NavBar = function ({ isNavOpened, setIsSideBarHidden }: NavBarProps) {
   const boards = useStore(state => state.boards)
   const currentBoard = useStore(state => state.currentBoard())
   const setCurrentBoard = useStore(state => state.setCurrentBoard)

@@ -1,17 +1,23 @@
-import React, { useEffect, useId, useRef, useState } from 'react'
-import { nanoid } from 'nanoid'
+import { useEffect, useId, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 import cancelImg from '../../assets/icon-cross.svg'
 import '../../sass/shared/modify-boards.scss'
 import useStore from '../store/store'
 
-const ModifyBoards: React.FC<{
+interface ModifyBoardsProps {
   title: string
   button: string
   editBoard?: boolean
   newColumn?: boolean
-}> = function ({ title, button, editBoard = false, newColumn = false }) {
+}
+
+const ModifyBoards = function ({
+  title,
+  button,
+  editBoard = false,
+  newColumn = false,
+}: ModifyBoardsProps) {
   const id = useId()
 
   const currentBoard = useStore(state => state.currentBoard)

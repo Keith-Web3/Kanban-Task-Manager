@@ -1,11 +1,10 @@
-import React from 'react'
 import { motion } from 'framer-motion'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 
 import '../../sass/shared/board.scss'
 import useStore from '../store/store'
 
-const Board: React.FC<{
+interface BoardProps {
   name: string
   colorTag: string
   id: number
@@ -15,8 +14,11 @@ const Board: React.FC<{
     description: string
     subtasks: { task: string; completed: boolean }[]
   }[]
-}> = function ({ name, tasks, id, colorTag }) {
+}
+
+const Board = function ({ name, tasks, id, colorTag }: BoardProps) {
   const setModalType = useStore(state => state.setModalType)
+
   return (
     <Droppable droppableId={`${id}`}>
       {provided => (
