@@ -34,22 +34,21 @@ const Body = function ({
       {currentBoard?.status &&
         !currentBoard.status.every(el => el.tasks.length === 0) && (
           <DragDropContext onDragEnd={handleDragEnd}>
-            <motion.div className="body__boards">
+            <div className="body__boards">
               {currentBoard.status
                 .filter(el => el.tasks.length)
                 .map(el => (
                   <Board key={nanoid()} {...el} />
                 ))}
-              <motion.div
-                layout
+              <div
                 onClick={() =>
                   setModalType({ modalType: 'new-column', showModal: true })
                 }
                 className="body__add-board"
               >
-                <motion.p layout>+ new column</motion.p>
-              </motion.div>
-            </motion.div>
+                <p>+ new column</p>
+              </div>
+            </div>
           </DragDropContext>
         )}
       <div className="empty">
