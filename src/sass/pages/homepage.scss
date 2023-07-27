@@ -80,6 +80,10 @@
     .body {
       background-color: $dark-300;
 
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba($white, 0.16);
+      }
+
       &__add-board {
         background: linear-gradient(
           180deg,

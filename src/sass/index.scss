@@ -1,6 +1,20 @@
 @use './resets';
 @use './variables' as *;
 
+html {
+  &::-webkit-scrollbar {
+    width: 6px !important;
+    height: 6px !important;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(#000000, 0.2);
+  }
+  &:has(body > #root > .homepage[data-theme='dark']) {
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba($white, 0.16) !important;
+    }
+  }
+}
 body {
   font-family: 'Plus Jakarta Sans', Nunito, sans-serif;
   display: grid;

@@ -8,6 +8,14 @@
   padding: $spacer;
   overflow-x: auto;
 
+  &::-webkit-scrollbar {
+    width: 6px !important;
+    height: 6px !important;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(#000000, 0.2);
+  }
+
   @include screen(700) {
     min-height: unset;
   }
