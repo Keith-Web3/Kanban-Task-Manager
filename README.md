@@ -41,13 +41,6 @@ The Kanban Task Management app is built with the following technologies:
 ## Contributing
 Contributions to the Kanban Task Management app are welcome! If you find any issues or would like to add new features, please submit a pull request with your changes.
 
-Before submitting a pull request, make sure to run the tests and format the code:
-
-```html
-npm test
-npm run lint
-npm run format
-```
 ## License
 This project is licensed under the MIT License. See the LICENSE file for more information.
 
